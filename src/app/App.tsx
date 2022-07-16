@@ -1,7 +1,11 @@
-import React from "react";
+import Navigator from './routes/Navigator';
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Navigator></Navigator>
+    </div>
+  );
 };
 
 export default App;
