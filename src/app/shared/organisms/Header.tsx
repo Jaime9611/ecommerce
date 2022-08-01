@@ -16,6 +16,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
+import { useAuth } from '../../hooks/useAuth';
+import Authorized from '../../helpers/Authorized';
 
 const pages = [
   { name: 'Home', route: '/' },
@@ -99,13 +101,25 @@ const Header = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map(page => (
-                <Link to={page.route}>
-                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Typography textAlign='center'>{page.name}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
+              {pages.map(page =>
+                page.name === 'Admin' ? (
+                  <Authorized
+                    when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
+                  >
+                    <Link to={page.route}>
+                      <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                        <Typography textAlign='center'>{page.name}</Typography>
+                      </MenuItem>
+                    </Link>
+                  </Authorized>
+                ) : (
+                  <Link to={page.route}>
+                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                      <Typography textAlign='center'>{page.name}</Typography>
+                    </MenuItem>
+                  </Link>
+                )
+              )}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -128,30 +142,48 @@ const Header = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(page => (
-              <Link to={page.route}>
-                <Button
-                  key={page.name}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+            {pages.map(page =>
+              page.name === 'Admin' ? (
+                <Authorized
+                  when={u => u.isAuth && u.user?.roles?.includes('ADMIN')}
                 >
-                  {page.name}
-                </Button>
-              </Link>
-            ))}
+                  <Link to={page.route}>
+                    <Button
+                      key={page.name}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      {page.name}
+                    </Button>
+                  </Link>
+                </Authorized>
+              ) : (
+                <Link to={page.route}>
+                  <Button
+                    key={page.name}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page.name}
+                  </Button>
+                </Link>
+              )
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton
-              size='large'
-              aria-label='show 17 new notifications'
-              color='inherit'
-              sx={{ mr: 1 }}
-            >
-              <Badge badgeContent={2} color='error'>
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Authorized when={u => u.user.sub !== '' && u.isAuth}>
+              <IconButton
+                size='large'
+                aria-label='show 17 new notifications'
+                color='inherit'
+                sx={{ mr: 1 }}
+              >
+                <Badge badgeContent={2} color='error'>
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Authorized>
             <IconButton
               size='large'
               aria-label='show 17 new products'
