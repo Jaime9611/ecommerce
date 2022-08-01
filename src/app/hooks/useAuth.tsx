@@ -7,7 +7,7 @@ export const useAuth = () => {
     auth: { token, user, loading },
   } = context;
 
-  const role = context.auth?.user?.role ?? 'common';
+  const role = context.auth?.user?.role ?? 'USER';
 
   return {
     user,
@@ -15,6 +15,6 @@ export const useAuth = () => {
     login: context.login,
     logout: context.logout,
     isAuth: token === '' ? false : true,
-    isAdmin: token === '' ? false : role === 'admin',
+    isAdmin: token === '' ? false : role === 'ADMIN',
   };
 };
