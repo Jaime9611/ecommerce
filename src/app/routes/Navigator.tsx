@@ -20,7 +20,7 @@ const Navigator = () => {
 
         {/* Public Only */}
         <Route element={<Protected redirect='/' hasAccess={!isAuth} />}>
-          <Route path='login' element={<Login />} />
+          <Route path='/login' element={<Login />} />
         </Route>
 
         {/* Authenticated only */}

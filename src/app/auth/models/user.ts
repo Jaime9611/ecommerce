@@ -1,8 +1,6 @@
-type Role = 'common' | 'admin';
+type Role = 'USER' | 'ADMIN';
 
 export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  role: Role;
+  sub: string;
+  roles: Role[];
 }

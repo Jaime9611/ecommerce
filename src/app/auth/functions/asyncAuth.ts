@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode';
 import { Dispatch } from 'react';
 import { authenticate } from '../../api/authentication';
 import { ActionType, IAuthAction } from '../models/auth';
@@ -12,7 +13,7 @@ export const asyncAuth = async (
 
   try {
     const { access_token } = await authenticate(username, password);
-    const user: IUser = {} as IUser; // TODO: jwtDecode(acces_token);
+    const user: IUser = jwtDecode(access_token) as IUser;
 
     dispatch({
       type: ActionType.LOGIN,

@@ -7,7 +7,7 @@ export const useAuth = () => {
     auth: { token, user, loading },
   } = context;
 
-  const role = context.auth?.user?.role ?? 'USER';
+  const role = user.roles ? user.roles[0] : 'USER';
 
   return {
     user,
