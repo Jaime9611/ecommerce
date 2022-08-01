@@ -1,7 +1,7 @@
 import { LOCAL_HOST } from '../constants/paths';
 import { AuthResponse } from './models/auth';
 
-const authPath = `${LOCAL_HOST}/auth/login`;
+const authPath = `${LOCAL_HOST}/auth/authenticate`;
 
 export const authenticate = async (username: string, password: string) => {
   const response = await fetch(authPath, {
