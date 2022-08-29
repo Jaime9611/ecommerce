@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Admin } from '../pages/Admin';
 import { Home } from '../pages/Home';
@@ -11,7 +11,7 @@ const Navigator = () => {
   const { isAdmin, isAuth } = useAuth();
 
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <Routes>
         {/* Public */}
@@ -33,7 +33,7 @@ const Navigator = () => {
           <Route path='admin' element={<Admin />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 

@@ -105,6 +105,7 @@ const Header = () => {
                 page.name === 'Admin' ? (
                   <Authorized
                     when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
+                    key={page.name}
                   >
                     <Link to={page.route}>
                       <MenuItem key={page.name} onClick={handleCloseNavMenu}>
@@ -113,7 +114,7 @@ const Header = () => {
                     </Link>
                   </Authorized>
                 ) : (
-                  <Link to={page.route}>
+                  <Link to={page.route} key={page.name}>
                     <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                       <Typography textAlign='center'>{page.name}</Typography>
                     </MenuItem>
@@ -146,6 +147,7 @@ const Header = () => {
               page.name === 'Admin' ? (
                 <Authorized
                   when={u => u.isAuth && u.user?.roles?.includes('ADMIN')}
+                  key={page.name}
                 >
                   <Link to={page.route}>
                     <Button
@@ -158,7 +160,7 @@ const Header = () => {
                   </Link>
                 </Authorized>
               ) : (
-                <Link to={page.route}>
+                <Link to={page.route} key={page.name}>
                   <Button
                     key={page.name}
                     onClick={handleCloseNavMenu}

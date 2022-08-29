@@ -7,7 +7,7 @@ interface IProps {
   children: ReactNode;
 }
 
-const Authorized = ({ when, children }: IProps) => {
+const Authorized = ({ when, children, ...restProps }: IProps) => {
   return Boolean(when(useAuth())) ? <>{children}</> : <></>;
 };
 
