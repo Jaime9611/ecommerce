@@ -1,0 +1,5 @@
+{
+  "home": { "name": "Home", "path": "/" },
+  "admin": { "name": "Admin", "path": "/admin" },
+  "login": { "name": "Login", "path": "/login" }
+}

@@ -16,14 +16,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
-import { useAuth } from '../../hooks/useAuth';
 import Authorized from '../../helpers/Authorized';
+import routes from '../../routes/constants/routes.json';
 
-const pages = [
-  { name: 'Home', route: '/' },
-  { name: 'Admin', route: '/admin' },
-  { name: 'Login', route: '/login' },
-];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -101,26 +96,38 @@ const Header = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map(page =>
-                page.name === 'Admin' ? (
-                  <Authorized
-                    when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
-                    key={page.name}
+              <Link to={routes.home.path} key={routes.home.name}>
+                <MenuItem key={routes.home.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign='center'>{routes.home.name}</Typography>
+                </MenuItem>
+              </Link>
+              <Authorized
+                when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
+                key={routes.admin.name}
+              >
+                <Link to={routes.admin.path} key={routes.admin.name}>
+                  <MenuItem
+                    key={routes.admin.name}
+                    onClick={handleCloseNavMenu}
                   >
-                    <Link to={page.route}>
-                      <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                        <Typography textAlign='center'>{page.name}</Typography>
-                      </MenuItem>
-                    </Link>
-                  </Authorized>
-                ) : (
-                  <Link to={page.route} key={page.name}>
-                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                      <Typography textAlign='center'>{page.name}</Typography>
-                    </MenuItem>
-                  </Link>
-                )
-              )}
+                    <Typography textAlign='center'>
+                      {routes.admin.name}
+                    </Typography>
+                  </MenuItem>
+                </Link>
+              </Authorized>
+              <Authorized when={u => !u.isAuth} key={routes.login.name}>
+                <Link to={routes.login.path} key={routes.login.name}>
+                  <MenuItem
+                    key={routes.login.name}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign='center'>
+                      {routes.login.name}
+                    </Typography>
+                  </MenuItem>
+                </Link>
+              </Authorized>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -143,34 +150,40 @@ const Header = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(page =>
-              page.name === 'Admin' ? (
-                <Authorized
-                  when={u => u.isAuth && u.user?.roles?.includes('ADMIN')}
-                  key={page.name}
+            <Link to={routes.home.path} key={routes.home.name}>
+              <Button
+                key={routes.home.name}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {routes.home.name}
+              </Button>
+            </Link>
+            <Authorized
+              when={u => u.isAuth && u.user?.roles?.includes('ADMIN')}
+              key={routes.admin.name}
+            >
+              <Link to={routes.admin.path}>
+                <Button
+                  key={routes.admin.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  <Link to={page.route}>
-                    <Button
-                      key={page.name}
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      {page.name}
-                    </Button>
-                  </Link>
-                </Authorized>
-              ) : (
-                <Link to={page.route} key={page.name}>
-                  <Button
-                    key={page.name}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                    {page.name}
-                  </Button>
-                </Link>
-              )
-            )}
+                  {routes.admin.name}
+                </Button>
+              </Link>
+            </Authorized>
+            <Authorized when={u => !u.isAuth} key={routes.login.name}>
+              <Link to={routes.login.path}>
+                <Button
+                  key={routes.login.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {routes.login.name}
+                </Button>
+              </Link>
+            </Authorized>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
