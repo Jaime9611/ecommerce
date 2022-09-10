@@ -1,23 +1,23 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Link } from 'react-router-dom';
-import { Badge } from '@mui/material';
 import Authorized from '../../helpers/Authorized';
 import routes from '../../routes/constants/routes.json';
+import NavLink from '../atoms/NavLink';
+import NavBrand from '../atoms/NavBrand';
+import Box from '../../lib/Box';
+import CartIcon from '../atoms/icons/CartIcon';
+import NotificationIcon from '../atoms/icons/NotificationIcon';
+import { Link } from 'react-router-dom';
+import Avatar from '../atoms/icons/Avatar';
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
@@ -49,23 +49,7 @@ const Header = () => {
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
-            href='/'
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <NavBrand href={routes.home.path}>LOGO</NavBrand>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -96,59 +80,32 @@ const Header = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <Link to={routes.home.path} key={routes.home.name}>
-                <MenuItem key={routes.home.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{routes.home.name}</Typography>
-                </MenuItem>
-              </Link>
+              <NavLink
+                to={routes.home.path}
+                name={routes.home.name}
+                onClick={handleCloseNavMenu}
+              />
               <Authorized
                 when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
                 key={routes.admin.name}
               >
-                <Link to={routes.admin.path} key={routes.admin.name}>
-                  <MenuItem
-                    key={routes.admin.name}
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign='center'>
-                      {routes.admin.name}
-                    </Typography>
-                  </MenuItem>
-                </Link>
+                <NavLink
+                  to={routes.admin.path}
+                  name={routes.admin.name}
+                  onClick={handleCloseNavMenu}
+                />
               </Authorized>
               <Authorized when={u => !u.isAuth} key={routes.login.name}>
-                <Link to={routes.login.path} key={routes.login.name}>
-                  <MenuItem
-                    key={routes.login.name}
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign='center'>
-                      {routes.login.name}
-                    </Typography>
-                  </MenuItem>
-                </Link>
+                <NavLink
+                  to={routes.login.path}
+                  name={routes.login.name}
+                  onClick={handleCloseNavMenu}
+                />
               </Authorized>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href=''
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <NavBrand href={routes.home.path}>LOGO</NavBrand>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to={routes.home.path} key={routes.home.name}>
               <Button
@@ -188,32 +145,15 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Authorized when={u => u.user.sub !== '' && u.isAuth}>
-              <IconButton
-                size='large'
-                aria-label='show 17 new notifications'
-                color='inherit'
-                sx={{ mr: 1 }}
-              >
-                <Badge badgeContent={2} color='error'>
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              <NotificationIcon count={7} />
             </Authorized>
-            <IconButton
-              size='large'
-              aria-label='show 17 new products'
-              color='inherit'
-              sx={{ mr: 2 }}
-            >
-              <Badge badgeContent={5} color='error'>
-                <LocalMallIcon />
-              </Badge>
-            </IconButton>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
-              </IconButton>
-            </Tooltip>
+            <CartIcon count={5} />
+            <Avatar
+              title='Open settings'
+              onClick={handleOpenUserMenu}
+              alt='Avatar Login'
+              imgUrl='/static/images/avatar/2.jpg'
+            />
             <Menu
               sx={{ mt: '45px' }}
               id='menu-appbar'

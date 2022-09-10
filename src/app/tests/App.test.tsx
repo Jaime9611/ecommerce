@@ -40,7 +40,7 @@ describe('Navigate as Authenticated Admin', () => {
   });
   it('should not have access to Login tag', () => {
     const navLink = screen.queryByRole('button', { name: routes.login.name });
-    // TODO change to not showing login button.
+
     expect(navLink).not.toBeInTheDocument();
   });
 });
