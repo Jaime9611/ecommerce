@@ -13,21 +13,34 @@ import NavBrand from '../atoms/NavBrand';
 import Box from '../../lib/Box';
 import CartIcon from '../atoms/icons/CartIcon';
 import NotificationIcon from '../atoms/icons/NotificationIcon';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../atoms/icons/Avatar';
 import HamburgerMenu from '../atoms/HamburgerMenu';
 import Menu from '../../lib/Menu';
 import SettingsMenu from '../atoms/SettingsMenu';
-
-const settings = ['Profile', 'Dashboard', 'Logout'];
+import { useAuth } from '../../hooks/useAuth';
 
 const Header = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  const settings = [
+    { name: 'Profile', fn: () => console.log('profile') },
+    { name: 'Dashboard', fn: () => console.log('dashboard') },
+    { name: 'Logout', fn: handleLogout },
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -45,11 +58,11 @@ const Header = () => {
   };
 
   return (
-    <AppBar position='static'>
+    <AppBar color='secondary' position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <NavBrand displayXs='none' displayMd='flex' href={routes.home.path}>
+          <NavBrand displayXs='none' displayMd='flex' to={routes.home.path}>
             ECOM
           </NavBrand>
 
@@ -85,7 +98,7 @@ const Header = () => {
             flexGrow={1}
             displayMd='none'
             displayXs='flex'
-            href={routes.home.path}
+            to={routes.home.path}
           >
             Ecom
           </NavBrand>
@@ -131,22 +144,30 @@ const Header = () => {
               <NotificationIcon count={7} />
             </Authorized>
             <CartIcon count={5} />
-            <Avatar
-              title='Open settings'
-              onClick={handleOpenUserMenu}
-              alt='Avatar Login'
-              imgUrl='/static/images/avatar/2.jpg'
-            />
-            <SettingsMenu
-              anchorElUser={anchorElUser}
-              handleClose={handleCloseUserMenu}
-            >
-              {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </SettingsMenu>
+            <Authorized when={u => u.isAuth}>
+              <Avatar
+                title='Open settings'
+                onClick={handleOpenUserMenu}
+                alt={user.sub?.toUpperCase()}
+                imgUrl='/static/images/avatar/2.jpg'
+              />
+              <SettingsMenu
+                anchorElUser={anchorElUser}
+                handleClose={handleCloseUserMenu}
+              >
+                {settings.map(setting => (
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      setting.fn();
+                    }}
+                  >
+                    <Typography textAlign='center'>{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+              </SettingsMenu>
+            </Authorized>
           </Box>
         </Toolbar>
       </Container>

@@ -1,7 +1,12 @@
 import React from 'react';
+import { Container } from '@mui/material';
 
 const Admin = () => {
-  return <div>Admin</div>;
+  return (
+    <Container maxWidth='xl' sx={{ mt: 3 }}>
+      Admin
+    </Container>
+  );
 };
 
 export default Admin;

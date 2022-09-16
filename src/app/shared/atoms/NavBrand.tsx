@@ -1,12 +1,13 @@
 import React from 'react';
 import { Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 type Props = {
   children: string;
   displayXs?: string;
   displayMd?: string;
   flexGrow?: number;
-  href: string;
+  to: string;
 };
 
 const NavBrand = (props: Props) => {
@@ -14,8 +15,8 @@ const NavBrand = (props: Props) => {
     <Typography
       variant='h5'
       noWrap
-      component='a'
-      href={props.href}
+      component={Link}
+      to={props.to}
       sx={{
         mr: 2,
         display: { xs: props.displayXs, md: props.displayMd },
