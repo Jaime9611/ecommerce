@@ -7,6 +7,8 @@ import { Profile } from '../pages/Profile';
 import Header from '../shared/organisms/Header';
 import Protected from './Protected';
 
+import routes from './constants/routes.json';
+
 const Navigator = () => {
   const { isAdmin, isAuth } = useAuth();
 
@@ -15,12 +17,12 @@ const Navigator = () => {
       <Header />
       <Routes>
         {/* Public */}
-        <Route path='/' element={<Home />} />
+        <Route path={routes.home.path} element={<Home />} />
         <Route path='*' element={<div>Not Found</div>} />
 
         {/* Public Only */}
         <Route element={<Protected redirect='/' hasAccess={!isAuth} />}>
-          <Route path='/login' element={<Login />} />
+          <Route path={routes.login.path} element={<Login />} />
         </Route>
 
         {/* Authenticated only */}
@@ -30,7 +32,7 @@ const Navigator = () => {
 
         {/* Admins Only */}
         <Route element={<Protected redirect='login' hasAccess={isAdmin} />}>
-          <Route path='admin' element={<Admin />} />
+          <Route path={routes.admin.path} element={<Admin />} />
         </Route>
       </Routes>
     </>

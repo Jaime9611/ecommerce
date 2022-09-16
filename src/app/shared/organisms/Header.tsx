@@ -1,10 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +15,9 @@ import CartIcon from '../atoms/icons/CartIcon';
 import NotificationIcon from '../atoms/icons/NotificationIcon';
 import { Link } from 'react-router-dom';
 import Avatar from '../atoms/icons/Avatar';
+import HamburgerMenu from '../atoms/HamburgerMenu';
+import Menu from '../../lib/Menu';
+import SettingsMenu from '../atoms/SettingsMenu';
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
@@ -49,37 +49,13 @@ const Header = () => {
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <NavBrand href={routes.home.path}>LOGO</NavBrand>
+          <NavBrand displayXs='none' displayMd='flex' href={routes.home.path}>
+            ECOM
+          </NavBrand>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleOpenNavMenu}
-              color='inherit'
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
+            <HamburgerMenu handleOpen={handleOpenNavMenu} />
+            <Menu anchorElNav={anchorElNav} handleClose={handleCloseNavMenu}>
               <NavLink
                 to={routes.home.path}
                 name={routes.home.name}
@@ -105,9 +81,16 @@ const Header = () => {
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <NavBrand href={routes.home.path}>LOGO</NavBrand>
+          <NavBrand
+            flexGrow={1}
+            displayMd='none'
+            displayXs='flex'
+            href={routes.home.path}
+          >
+            Ecom
+          </NavBrand>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Link to={routes.home.path} key={routes.home.name}>
+            <Link to={routes.home.path}>
               <Button
                 key={routes.home.name}
                 onClick={handleCloseNavMenu}
@@ -130,7 +113,7 @@ const Header = () => {
                 </Button>
               </Link>
             </Authorized>
-            <Authorized when={u => !u.isAuth} key={routes.login.name}>
+            <Authorized when={u => !u.isAuth}>
               <Link to={routes.login.path}>
                 <Button
                   key={routes.login.name}
@@ -154,28 +137,16 @@ const Header = () => {
               alt='Avatar Login'
               imgUrl='/static/images/avatar/2.jpg'
             />
-            <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+            <SettingsMenu
+              anchorElUser={anchorElUser}
+              handleClose={handleCloseUserMenu}
             >
               {settings.map(setting => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign='center'>{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </SettingsMenu>
           </Box>
         </Toolbar>
       </Container>
