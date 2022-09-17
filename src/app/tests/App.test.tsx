@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -7,6 +7,8 @@ import { AuthContext } from '../auth/AuthProvider';
 import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
+import React, { useEffect } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 describe('Navigate as Authenticated Admin', () => {
   let history: any;
@@ -43,6 +45,11 @@ describe('Navigate as Authenticated Admin', () => {
 
     expect(navLink).not.toBeInTheDocument();
   });
+  it('should have access to Logout button', () => {
+    const logoutLink = screen.getByText(/logout/i);
+
+    expect(logoutLink).toBeInTheDocument();
+  });
 });
 
 describe('Navigate as Authenticated but not as Admin', () => {
@@ -73,13 +80,18 @@ describe('Navigate as Authenticated but not as Admin', () => {
 
     expect(navLink).not.toBeInTheDocument();
   });
+  it('should have access to Logout button', () => {
+    const logoutLink = screen.getByText(/logout/i);
+
+    expect(logoutLink).toBeInTheDocument();
+  });
 });
 
 describe('Navigate as not Authenticated user', () => {
   let history: any;
 
   beforeEach(() => {
-    const context = setContext(false, true);
+    const context = setContext(false, false);
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
@@ -100,7 +112,7 @@ describe('Navigate as not Authenticated user', () => {
     expect(history.location.pathname).toBe(routes.home.path);
   });
 
-  it('should have access to Admin', () => {
+  it('should not have access to Admin', () => {
     const navLink = screen.queryByRole('button', { name: routes.admin.name });
 
     expect(navLink).not.toBeInTheDocument();
@@ -114,5 +126,44 @@ describe('Navigate as not Authenticated user', () => {
     userEvent.click(navLink);
 
     expect(history.location.pathname).toBe(routes.login.path);
+  });
+  it('should not have access to Logout button', () => {
+    const logoutLink = screen.queryByText(/logout/i);
+
+    expect(logoutLink).not.toBeInTheDocument();
+  });
+});
+
+describe('Logut user and redirect', () => {
+  let history: any;
+  let context: any;
+
+  beforeEach(() => {
+    context = setContext(true, false);
+    history = createMemoryHistory();
+
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    render(
+      <AuthContext.Provider value={context}>
+        <Router location={history.location} navigator={history}>
+          <Navigator />
+        </Router>
+      </AuthContext.Provider>
+    );
+  });
+  afterEach(cleanup);
+
+  it('should show the User credentials', () => {
+    const userName = screen.getByRole('img', { name: /john/i });
+
+    expect(userName.getAttribute('alt')).toEqual('JOHN');
+  });
+
+  it('should logout when Logout button is clicked', () => {
+    const logoutBtn = screen.getByText(/logout/i);
+
+    userEvent.click(logoutBtn);
+
+    expect(context.logout.mock.calls.length).toBe(1);
   });
 });
