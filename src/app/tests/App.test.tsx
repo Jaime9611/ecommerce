@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -7,8 +7,6 @@ import { AuthContext } from '../auth/AuthProvider';
 import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
-import React, { useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
 
 describe('Navigate as Authenticated Admin', () => {
   let history: any;
@@ -26,6 +24,8 @@ describe('Navigate as Authenticated Admin', () => {
       </AuthContext.Provider>
     );
   });
+
+  afterEach(cleanup);
 
   it('should have access to home', () => {
     const navLink = screen.getByRole('button', { name: routes.home.name });
@@ -69,6 +69,8 @@ describe('Navigate as Authenticated but not as Admin', () => {
     );
   });
 
+  afterEach(cleanup);
+
   it('should not have access to Admin page', () => {
     const admin = screen.queryByRole('button', { name: routes.admin.name });
 
@@ -103,6 +105,8 @@ describe('Navigate as not Authenticated user', () => {
       </AuthContext.Provider>
     );
   });
+
+  afterEach(cleanup);
 
   it('should have access to home', () => {
     const navLink = screen.getByRole('button', { name: routes.home.name });

@@ -5,7 +5,7 @@ export const useForm = <T,>(initialValue: T) => {
 
   const handleChange = ({
     target: { value, name },
-  }: ChangeEvent<HTMLInputElement>) => {
+  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setState({ ...state, [name]: value });
   };
 
