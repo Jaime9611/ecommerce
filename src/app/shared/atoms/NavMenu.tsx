@@ -1,8 +1,6 @@
 import React from 'react';
 
-type Props = {};
-
-const NavMenu = (props: Props) => {
+const NavMenu = () => {
   return <div>NavMenu</div>;
 };
 

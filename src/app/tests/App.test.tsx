@@ -21,7 +21,7 @@ describe('Navigate as Authenticated Admin', () => {
         <Router location={history.location} navigator={history}>
           <Navigator />
         </Router>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   });
 
@@ -65,7 +65,7 @@ describe('Navigate as Authenticated but not as Admin', () => {
         <Router location={history.location} navigator={history}>
           <Navigator />
         </Router>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   });
 
@@ -102,7 +102,7 @@ describe('Navigate as not Authenticated user', () => {
         <Router location={history.location} navigator={history}>
           <Navigator />
         </Router>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   });
 
@@ -152,7 +152,7 @@ describe('Logut user and redirect', () => {
         <Router location={history.location} navigator={history}>
           <Navigator />
         </Router>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   });
   afterEach(cleanup);

@@ -1,7 +1,5 @@
-import { SyntheticEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -28,7 +26,7 @@ const Login = () => {
   };
 
   return loading ? (
-    <h2>Loading...</h2>
+    <h2>Loading..</h2>
   ) : (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -46,12 +44,7 @@ const Login = () => {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box
-            component='form'
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin='normal'
               required
@@ -94,7 +87,7 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <Link href='#' variant='body2'>
-                  {"Don't have an account? Sign Up"}
+                  "Don't have an account? Sign Up"
                 </Link>
               </Grid>
             </Grid>

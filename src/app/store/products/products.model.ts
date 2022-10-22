@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 
 export interface ProductsStore {
-  products: any[];
+  products: unknown[];
   loading: boolean;
   error?: SerializedError;
 }
