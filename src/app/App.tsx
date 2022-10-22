@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './auth/AuthProvider';
 import Navigator from './routes/Navigator';
 import { store } from './store/store';
@@ -7,7 +8,9 @@ const App = () => {
   return (
     <AuthProvider>
       <Provider store={store}>
-        <Navigator />
+        <BrowserRouter>
+          <Navigator />
+        </BrowserRouter>
       </Provider>
     </AuthProvider>
   );

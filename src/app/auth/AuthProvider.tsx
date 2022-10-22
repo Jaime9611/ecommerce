@@ -18,8 +18,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value: IAuthContext = {
     auth,
-    login: async (username, password) =>
-      await asyncAuth(dispatch, username, password),
+    login: async (username, password) => await asyncAuth(dispatch, username, password),
     logout: () => dispatch({ type: ActionType.LOGOUT }),
   };
 
