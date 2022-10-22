@@ -1,10 +1,17 @@
 import { LOCAL_HOST } from '../constants/paths';
-import { Product } from './models/product';
+import { HttpError } from './errors/error-responses';
+import { ProductListResponse } from './models/responses';
 
 const productsPath = `${LOCAL_HOST}/products`;
 
 export const getAllProducts = async () => {
   const response = await fetch(productsPath);
 
-  return (await response.json()) as Product[];
+  const data = (await response.json()) as ProductListResponse;
+
+  if (!response.ok) {
+    throw new HttpError('Request failed', response.status, data);
+  }
+
+  return data;
 };
