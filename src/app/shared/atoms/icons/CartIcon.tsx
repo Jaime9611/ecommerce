@@ -8,12 +8,7 @@ type Props = {
 
 const CartIcon = (props: Props) => {
   return (
-    <IconButton
-      size='large'
-      aria-label='show 17 new products'
-      color='inherit'
-      sx={{ mr: 2 }}
-    >
+    <IconButton size='large' aria-label='show 17 new products' color='inherit' sx={{ mr: 2 }}>
       <Badge badgeContent={props.count} color='error'>
         <LocalMallIcon />
       </Badge>

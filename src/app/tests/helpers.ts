@@ -1,9 +1,6 @@
 import { IAuthContext } from '../auth/models/auth';
 
-export const setContext = (
-  isAuth: boolean,
-  isAdmin: boolean
-): IAuthContext => ({
+export const setContext = (isAuth: boolean, isAdmin: boolean): IAuthContext => ({
   auth: {
     token: isAuth ? 'token' : '',
     user: {

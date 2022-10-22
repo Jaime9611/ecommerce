@@ -24,12 +24,8 @@ const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleLogout = () => {
     logout();
@@ -69,11 +65,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <HamburgerMenu handleOpen={handleOpenNavMenu} />
             <Menu anchorElNav={anchorElNav} handleClose={handleCloseNavMenu}>
-              <NavLink
-                to={routes.home.path}
-                name={routes.home.name}
-                onClick={handleCloseNavMenu}
-              />
+              <NavLink to={routes.home.path} name={routes.home.name} onClick={handleCloseNavMenu} />
               <Authorized
                 when={u => u.user?.roles?.includes('ADMIN') && u.isAuth}
                 key={routes.admin.name}
@@ -94,12 +86,7 @@ const Header = () => {
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <NavBrand
-            flexGrow={1}
-            displayMd='none'
-            displayXs='flex'
-            to={routes.home.path}
-          >
+          <NavBrand flexGrow={1} displayMd='none' displayXs='flex' to={routes.home.path}>
             Ecom
           </NavBrand>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -151,10 +138,7 @@ const Header = () => {
                 alt={user.sub?.toUpperCase()}
                 imgUrl='/static/images/avatar/2.jpg'
               />
-              <SettingsMenu
-                anchorElUser={anchorElUser}
-                handleClose={handleCloseUserMenu}
-              >
+              <SettingsMenu anchorElUser={anchorElUser} handleClose={handleCloseUserMenu}>
                 {settings.map(setting => (
                   <MenuItem
                     key={setting.name}
