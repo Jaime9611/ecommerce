@@ -1,4 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -7,8 +9,30 @@ import { AuthContext } from '../auth/AuthProvider';
 import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
+import { renderWithProviders } from './test-utils';
 
-describe.skip('Navigate as Authenticated Admin', () => {
+const responseJson = `"data": [
+  {"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafjal",
+"title": "Call of Duty",
+"price": 20.38},
+{"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafackl",
+"title": "God of War 3",
+"price": 34.38}
+]`;
+
+export const handlers = [
+  rest.get('http://localhost:8081/api/v1/products', (req, res, ctx) => {
+    return res(ctx.json(responseJson), ctx.delay(150));
+  }),
+];
+
+const server = setupServer(...handlers);
+
+beforeAll(() => server.listen());
+afterEach(() => server.restoreHandlers());
+afterAll(() => server.close());
+
+describe('Navigate as Authenticated Admin', () => {
   let history: any;
 
   beforeEach(() => {
@@ -16,7 +40,7 @@ describe.skip('Navigate as Authenticated Admin', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
+    renderWithProviders(
       <AuthContext.Provider value={context}>
         <Router location={history.location} navigator={history}>
           <Navigator />
@@ -24,8 +48,6 @@ describe.skip('Navigate as Authenticated Admin', () => {
       </AuthContext.Provider>,
     );
   });
-
-  afterEach(cleanup);
 
   it('should have access to home', () => {
     const navLink = screen.getByRole('button', { name: routes.home.name });
@@ -52,7 +74,7 @@ describe.skip('Navigate as Authenticated Admin', () => {
   });
 });
 
-describe.skip('Navigate as Authenticated but not as Admin', () => {
+describe('Navigate as Authenticated but not as Admin', () => {
   let history: any;
 
   beforeEach(() => {
@@ -60,7 +82,7 @@ describe.skip('Navigate as Authenticated but not as Admin', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
+    renderWithProviders(
       <AuthContext.Provider value={context}>
         <Router location={history.location} navigator={history}>
           <Navigator />
@@ -68,8 +90,6 @@ describe.skip('Navigate as Authenticated but not as Admin', () => {
       </AuthContext.Provider>,
     );
   });
-
-  afterEach(cleanup);
 
   it('should not have access to Admin page', () => {
     const admin = screen.queryByRole('button', { name: routes.admin.name });
@@ -89,7 +109,7 @@ describe.skip('Navigate as Authenticated but not as Admin', () => {
   });
 });
 
-describe.skip('Navigate as not Authenticated user', () => {
+describe('Navigate as not Authenticated user', () => {
   let history: any;
 
   beforeEach(() => {
@@ -97,7 +117,7 @@ describe.skip('Navigate as not Authenticated user', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
+    renderWithProviders(
       <AuthContext.Provider value={context}>
         <Router location={history.location} navigator={history}>
           <Navigator />
@@ -138,7 +158,7 @@ describe.skip('Navigate as not Authenticated user', () => {
   });
 });
 
-describe.skip('Logut user and redirect', () => {
+describe('Logut user and redirect', () => {
   let history: any;
   let context: any;
 
@@ -147,7 +167,7 @@ describe.skip('Logut user and redirect', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
+    renderWithProviders(
       <AuthContext.Provider value={context}>
         <Router location={history.location} navigator={history}>
           <Navigator />
@@ -163,7 +183,7 @@ describe.skip('Logut user and redirect', () => {
     expect(userName.getAttribute('alt')).toEqual('JOHN');
   });
 
-  it.skip('should logout when Logout button is clicked', () => {
+  it('should logout when Logout button is clicked', () => {
     const logoutBtn = screen.getByText(/logout/i);
 
     userEvent.click(logoutBtn);

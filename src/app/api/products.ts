@@ -6,7 +6,6 @@ const productsPath = `${LOCAL_HOST}/products`;
 
 export const getAllProducts = async () => {
   const response = await fetch(productsPath);
-
   const data = (await response.json()) as ProductListResponse;
 
   if (!response.ok) {
