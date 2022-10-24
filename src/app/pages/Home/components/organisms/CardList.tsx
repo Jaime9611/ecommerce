@@ -1,5 +1,5 @@
 import { Product } from '../../../../api/models/product';
-import CardItem from './CardItem';
+import CardItem from '../molecules/CardItem';
 
 type CardListProps = {
   data: Product[];

@@ -3,8 +3,8 @@ import { Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { fetchAllProducts } from '../../store/products/products.action';
-import CardList from './components/Cards/CardList';
 import { ProductState } from '../../store/products/productsSlice';
+import CardList from './components/organisms/CardList';
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();

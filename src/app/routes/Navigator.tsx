@@ -16,7 +16,7 @@ const Navigator = () => {
     <>
       <Header />
       <Routes>
-        {/* Public */}
+        {/* All */}
         <Route path={routes.home.path} element={<Home />} />
         <Route path='*' element={<div>Not Found</div>} />
 
