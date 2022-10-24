@@ -4,7 +4,7 @@ import { Admin } from '../pages/Admin';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Profile } from '../pages/Profile';
-import Header from '../shared/organisms/Header';
+import Header from '../shared/organisms/Header/Header';
 import Protected from './Protected';
 
 import routes from './constants/routes.json';

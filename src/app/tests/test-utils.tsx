@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 // import type { RootState } from '../store/store';
 import productsReducer from '../store/products/productsSlice';
+import cartReducer from '../store/cart/cartSlice';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   store?: EnhancedStore;
@@ -14,11 +15,11 @@ export function renderWithProviders(
   ui: React.ReactElement,
   {
     // initialState = {},
-    store = configureStore({ reducer: { products: productsReducer } }),
+    store = configureStore({ reducer: { products: productsReducer, cart: cartReducer } }),
     ...renderOptions
   }: ExtendedRenderOptions = {},
 ) {
-  function Wrapper({ children }: PropsWithChildren<ReactNode>): JSX.Element {
+  function Wrapper({ children }: PropsWithChildren): JSX.Element {
     return <Provider store={store}>{children}</Provider>;
   }
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
