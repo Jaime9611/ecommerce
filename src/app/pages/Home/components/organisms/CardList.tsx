@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Product } from '../../../../api/models/product';
 import { addtoCart } from '../../../../store/cart/cartSlice';
 import { AppDispatch } from '../../../../store/store';
+import Grid from '@mui/material/Grid';
 import CardItem from '../molecules/CardItem';
 
 type CardListProps = {
@@ -16,11 +17,13 @@ const CardList = ({ data }: CardListProps) => {
   };
 
   return (
-    <>
+    <Grid container spacing={2}>
       {data.map(product => (
-        <CardItem key={product.id} item={product} onClick={() => handleClick(product)} />
+        <Grid item xs={2} key={product.id}>
+          <CardItem item={product} onClick={() => handleClick(product)} />
+        </Grid>
       ))}
-    </>
+    </Grid>
   );
 };
 

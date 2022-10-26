@@ -19,17 +19,24 @@ import HamburgerMenu from '../../atoms/HamburgerMenu';
 import Menu from '../../../lib/Menu';
 import SettingsMenu from '../../atoms/SettingsMenu';
 import { useAuth } from '../../../hooks/useAuth';
+import Cart from '../Cart/Cart';
 
+// TODO: Tests for Nav
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [isCartOpen, setIsCartOpen] = React.useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const toggleCart = (value: boolean) => {
+    setIsCartOpen(value);
   };
 
   const settings = [
@@ -130,7 +137,8 @@ const Header = () => {
             <Authorized when={u => u.user.sub !== '' && u.isAuth}>
               <NotificationIcon count={7} />
             </Authorized>
-            <CartIcon count={5} />
+            <CartIcon count={5} onClick={() => toggleCart(true)} />
+            <Cart open={isCartOpen} onClose={() => toggleCart(false)} />
             <Authorized when={u => u.isAuth}>
               <Avatar
                 title='Open settings'
