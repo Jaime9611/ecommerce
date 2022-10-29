@@ -6,6 +6,7 @@ jest.mock('react-redux', () => {
   };
 });
 import { render, screen } from '@testing-library/react';
+import { messages } from '../../../constants/messages';
 import Cart from './Cart';
 
 // TODO: Finish the test for this
@@ -15,5 +16,5 @@ it('should display all items from the cart', () => {
 
 it('should show a message of no items when there are no items', () => {
   render(<Cart open={true} onClose={() => {}} />);
-  expect(screen.getByText(/There are no items in the cart/i)).toBeInTheDocument();
+  expect(screen.getByText(messages.CART.isEmptyMsg)).toBeInTheDocument();
 });

@@ -1,3 +1,4 @@
+import { CssBaseline } from '@mui/material';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './auth/AuthProvider';
@@ -7,6 +8,7 @@ import { store } from './store/store';
 const App = () => {
   return (
     <AuthProvider>
+      <CssBaseline />
       <Provider store={store}>
         <BrowserRouter>
           <Navigator />
