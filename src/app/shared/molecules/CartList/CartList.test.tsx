@@ -1,16 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '../../../api/models/product';
 import { messages } from '../../../constants/messages';
+import { CartProduct } from '../../../store/cart/cart.model';
 import CartList from './CartList';
 
 it('should show all the items of the given array', () => {
-  const products: Product[] = [
+  const products: CartProduct[] = [
     {
       id: '1',
       title: 'Test Product 1',
       price: 234,
       description: 'Desc',
       imageUrl: 'Image',
+      quantity: 2,
     },
     {
       id: '2',
@@ -18,6 +19,7 @@ it('should show all the items of the given array', () => {
       price: 23,
       description: 'Desc',
       imageUrl: 'Image 2',
+      quantity: 1,
     },
   ];
 
@@ -27,7 +29,7 @@ it('should show all the items of the given array', () => {
 });
 
 it('should show a no items message when there are no items', () => {
-  const products: Product[] = [] as Product[];
+  const products: CartProduct[] = [] as CartProduct[];
 
   render(<CartList items={products} />);
   expect(screen.getByText(messages.CART.isEmptyMsg)).toBeInTheDocument();
