@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { CartProduct } from '../../../store/cart/cart.model';
 import CartItem from './CartItem';
 
+// TODO: Make the test for the functions
 it('should render a Cart Item with title, price and quantity', () => {
   const testItem: CartProduct = {
     id: '1',
