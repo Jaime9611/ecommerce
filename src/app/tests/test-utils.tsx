@@ -1,21 +1,19 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
+import { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-
-// import type { RootState } from '../store/store';
-import productsReducer from '../store/products/productsSlice';
-import cartReducer from '../store/cart/cartSlice';
+import { AppStore, RootState, setupStore } from '../store/store';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  store?: EnhancedStore;
+  preloadedState?: PreloadedState<RootState>;
+  store?: AppStore;
 }
 
 export function renderWithProviders(
   ui: React.ReactElement,
   {
-    // initialState = {},
-    store = configureStore({ reducer: { products: productsReducer, cart: cartReducer } }),
+    preloadedState = {},
+    store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {},
 ) {

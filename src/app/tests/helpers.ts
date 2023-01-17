@@ -1,13 +1,11 @@
-import { IAuthContext } from '../auth/models/auth';
+import { Role } from '../auth/models/user';
+import { AuthStore } from '../store/users/user.model';
 
-export const setContext = (isAuth: boolean, isAdmin: boolean): IAuthContext => ({
-  auth: {
-    token: isAuth ? 'token' : '',
-    user: {
-      sub: isAuth ? 'John' : '',
-      roles: [isAuth ? (isAdmin ? 'ADMIN' : 'USER') : 'USER'],
-    },
+export const setContext = (isAuth: boolean, isAdmin: boolean) => ({
+  token: isAuth ? 'token' : '',
+  user: {
+    sub: isAuth ? 'John' : '',
+    roles: [isAuth ? (isAdmin ? 'ADMIN' : 'USER') : 'USER'] as Role[],
   },
-  login: jest.fn(),
-  logout: jest.fn(),
+  loading: false,
 });

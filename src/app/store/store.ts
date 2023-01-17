@@ -1,4 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+  PreloadedState,
+} from '@reduxjs/toolkit';
 import cartReducer from './cart/cartSlice';
 import productsReducer from './products/productsSlice';
 import userReducer from './users/userSlice';
@@ -10,17 +15,25 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const persistedReducer = persistReducer(persistConfig, userReducer) as typeof rootReducer;
 
-export const store = configureStore({
-  reducer: {
-    products: productsReducer,
-    cart: cartReducer,
-    user: persistedReducer,
-  },
-  devTools: process.env.NODE_ENV !== 'production',
+const rootReducer = combineReducers({
+  products: productsReducer,
+  cart: cartReducer,
+  user: persistedReducer,
 });
 
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
+    preloadedState,
+    devTools: process.env.NODE_ENV !== 'production',
+  });
+
+const store = setupStore();
+
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

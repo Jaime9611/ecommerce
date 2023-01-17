@@ -3,14 +3,14 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './auth/AuthProvider';
 import Navigator from './routes/Navigator';
-import { store, persistor } from './store/store';
+import { setupStore, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <AuthProvider>
       <CssBaseline />
-      <Provider store={store}>
+      <Provider store={setupStore()}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
             <Navigator />
