@@ -1,9 +1,4 @@
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-  PreloadedState,
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit';
 import cartReducer from './cart/cartSlice';
 import productsReducer from './products/productsSlice';
 import userReducer from './users/userSlice';
@@ -31,7 +26,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
     devTools: process.env.NODE_ENV !== 'production',
   });
 
-const store = setupStore();
+export const store = setupStore();
 
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
