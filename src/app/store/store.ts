@@ -10,17 +10,17 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer) as typeof rootReducer;
-
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
-  user: persistedReducer,
+  user: userReducer,
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
   configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
     preloadedState,
     devTools: process.env.NODE_ENV !== 'production',
