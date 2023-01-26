@@ -30,6 +30,9 @@ const Cart = ({ onClose, open }: CartProps) => {
         onIncrement={handleIncrementQuantity}
         onDecrement={handleDecrementQuantity}
       />
+      <p>
+        Total: $<span>{items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}</span>
+      </p>
     </Drawer>
   );
 };

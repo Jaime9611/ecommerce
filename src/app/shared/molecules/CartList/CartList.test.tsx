@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { Product } from '../../../api/models/product';
 import { messages } from '../../../constants/messages';
 import { CartProduct } from '../../../store/cart/cart.model';
-import { renderWithProviders } from '../../../tests/test-utils';
 import CartList from './CartList';
 
 it('should show all the items of the given array', () => {
@@ -25,7 +24,7 @@ it('should show all the items of the given array', () => {
     },
   ];
 
-  renderWithProviders(
+  render(
     <CartList
       items={products}
       onIncrement={(item: Product) => {}}
@@ -39,7 +38,7 @@ it('should show all the items of the given array', () => {
 it('should show a no items message when there are no items', () => {
   const products: CartProduct[] = [] as CartProduct[];
 
-  renderWithProviders(
+  render(
     <CartList
       items={products}
       onIncrement={(item: Product) => {}}

@@ -5,7 +5,8 @@
 //     },
 //   };
 // });
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { messages } from '../../../constants/messages';
 import { renderWithProviders } from '../../../tests/test-utils';
 import Cart from './Cart';
@@ -55,10 +56,64 @@ describe('When the Cart has 1 or more items', () => {
     expect(screen.getByText(cartTest.items[1].title)).toBeInTheDocument();
   });
 
-  describe('When the add button is clicked', () => {
-    // TODO: Add functionality
-    it('should increase the quantity of a product', () => {});
-    // TODO: Add total price
-    it('should increase the total price of the Cart', () => {});
+  describe('When the increment button is clicked', () => {
+    it('should increase the quantity of a product', () => {
+      // ARRANGE
+      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+
+      // ACT
+      userEvent.click(within(item).getByRole('button', { name: '+' }));
+
+      // ASSERT
+      expect(within(item).getByText(`x${cartTest.items[0].quantity + 1}`)).toBeInTheDocument();
+    });
+
+    it('should increase the total price of the Cart', () => {
+      // ARRANGE
+      const cartTotal = screen.getByText(/Total/i);
+      const totalPriceBefore = cartTest.items.reduce(
+        (acc, curr) => acc + curr.price * curr.quantity,
+        0,
+      );
+      const totalPriceAfter = totalPriceBefore + cartTest.items[0].price;
+
+      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+
+      // ACT
+      userEvent.click(within(item).getByRole('button', { name: '+' }));
+
+      // ASSERT
+      expect(within(cartTotal).getByText(`${totalPriceAfter}`)).toBeInTheDocument();
+    });
+  });
+  describe('When the decrement button is clicked', () => {
+    it('should decrease the quantity of a product', () => {
+      // ARRANGE
+      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+
+      // ACT
+      userEvent.click(within(item).getByRole('button', { name: '-' }));
+
+      // ASSERT
+      expect(within(item).getByText(`x${cartTest.items[0].quantity - 1}`)).toBeInTheDocument();
+    });
+
+    it('should decrease the total price of the Cart', () => {
+      // ARRANGE
+      const cartTotal = screen.getByText(/Total/i);
+      const totalPriceBefore = cartTest.items.reduce(
+        (acc, curr) => acc + curr.price * curr.quantity,
+        0,
+      );
+      const totalPriceAfter = totalPriceBefore - cartTest.items[0].price;
+
+      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+
+      // ACT
+      userEvent.click(within(item).getByRole('button', { name: '-' }));
+
+      // ASSERT
+      expect(within(cartTotal).getByText(`${totalPriceAfter}`)).toBeInTheDocument();
+    });
   });
 });
