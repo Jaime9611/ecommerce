@@ -10,10 +10,9 @@ type CartProps = {
   onClose: () => void;
 };
 
-// TODO: Make test for this component
 const Cart = ({ onClose, open }: CartProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { items } = useSelector(CartState);
+  const { items, cartTotal } = useSelector(CartState);
 
   const handleIncrementQuantity = (item: Product) => {
     dispatch(incrementQuantity(item));
@@ -31,7 +30,7 @@ const Cart = ({ onClose, open }: CartProps) => {
         onDecrement={handleDecrementQuantity}
       />
       <p>
-        Total: $<span>{items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}</span>
+        Total: $<span>{cartTotal}</span>
       </p>
     </Drawer>
   );

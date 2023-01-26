@@ -11,6 +11,12 @@ const initialState: CartStore = {
 const removeItemFromCart = (item: Product, cart: CartProduct[]) =>
   cart.filter(cartItem => cartItem.id !== item.id);
 
+const calculateCartTotal = (items: CartProduct[]) => {
+  const total = items.reduce((acc, curr) => curr.quantity * curr.price + acc, 0);
+
+  return Number(total.toFixed(2));
+};
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -22,13 +28,17 @@ export const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
+
+      state.cartTotal = calculateCartTotal(state.items);
     },
     removeFromCart: (state, action: PayloadAction<Product>) => {
       state.items = removeItemFromCart(action.payload, state.items);
+      state.cartTotal = calculateCartTotal(state.items);
     },
     incrementQuantity: (state, action: PayloadAction<Product>) => {
       const item = state.items.find(item => item.id === action.payload.id);
       item && item.quantity++;
+      state.cartTotal = calculateCartTotal(state.items);
     },
     decrementQuantity: (state, action: PayloadAction<Product>) => {
       const item = state.items.find(item => item.id === action.payload.id);
@@ -37,6 +47,7 @@ export const cartSlice = createSlice({
       } else {
         item && item.quantity--;
       }
+      state.cartTotal = calculateCartTotal(state.items);
     },
   },
 });
