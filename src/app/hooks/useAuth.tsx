@@ -1,9 +1,7 @@
-import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthContext } from '../auth/AuthProvider';
-import { IUser } from '../auth/models/user';
 import { AppDispatch } from '../store/store';
 import { login } from '../store/users/user.action';
+import { IUser } from '../store/users/user.model';
 import { logout, UserState } from '../store/users/userSlice';
 
 export type IUseAuth = {
@@ -14,24 +12,6 @@ export type IUseAuth = {
   isAuth: boolean;
   isAdmin: boolean;
 };
-
-// export const useAuth = (): IUseAuth => {
-//   const context = useContext(AuthContext);
-//   const {
-//     auth: { token, user, loading },
-//   } = context;
-
-//   const role = user.roles ? user.roles[0] : 'USER';
-
-//   return {
-//     user,
-//     loading,
-//     login: context.login,
-//     logout: context.logout,
-//     isAuth: token === '' ? false : true,
-//     isAdmin: token === '' ? false : role === 'ADMIN',
-//   };
-// };
 
 export const useAuth = (): IUseAuth => {
   const { token, user, loading } = useSelector(UserState);

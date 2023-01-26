@@ -4,7 +4,6 @@ import { setupServer } from 'msw/node';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthProvider';
 
 import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';

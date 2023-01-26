@@ -1,4 +1,4 @@
-import { Role } from '../auth/models/user';
+import { Role } from '../store/users/user.model';
 
 export const setContext = (isAuth: boolean, isAdmin: boolean) => ({
   token: isAuth ? 'token' : '',
@@ -7,4 +7,8 @@ export const setContext = (isAuth: boolean, isAdmin: boolean) => ({
     roles: [isAuth ? (isAdmin ? 'ADMIN' : 'USER') : 'USER'] as Role[],
   },
   loading: false,
+  _persist: {} as {
+    version: number;
+    rehydrated: boolean;
+  },
 });
