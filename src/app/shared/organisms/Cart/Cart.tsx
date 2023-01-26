@@ -24,14 +24,25 @@ const Cart = ({ onClose, open }: CartProps) => {
 
   return (
     <Drawer open={open} anchor='right' onClose={onClose}>
-      <CartList
-        items={items}
-        onIncrement={handleIncrementQuantity}
-        onDecrement={handleDecrementQuantity}
-      />
-      <p>
-        Total: $<span>{cartTotal}</span>
-      </p>
+      <div
+        style={{
+          display: 'flex',
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <CartList
+          items={items}
+          onIncrement={handleIncrementQuantity}
+          onDecrement={handleDecrementQuantity}
+        />
+
+        <p aria-label='Cart Total' style={{ textAlign: 'center', width: '100%' }}>
+          <span style={{ fontSize: '35px' }}>Total: </span>
+          <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{`$${cartTotal}`}</span>
+        </p>
+      </div>
     </Drawer>
   );
 };

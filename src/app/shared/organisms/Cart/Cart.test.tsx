@@ -59,7 +59,7 @@ describe('When the Cart has 1 or more items', () => {
   describe('When the increment button is clicked', () => {
     it('should increase the quantity of a product', () => {
       // ARRANGE
-      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+      const item = screen.getByLabelText(`CartItem-${cartTest.items[0].title}`);
 
       // ACT
       userEvent.click(within(item).getByRole('button', { name: '+' }));
@@ -70,26 +70,26 @@ describe('When the Cart has 1 or more items', () => {
 
     it('should increase the total price of the Cart', () => {
       // ARRANGE
-      const cartTotal = screen.getByText(/Total/i);
+      const cartTotal = screen.getByLabelText(/Cart Total/i);
       const totalPriceBefore = cartTest.items.reduce(
         (acc, curr) => acc + curr.price * curr.quantity,
         0,
       );
       const totalPriceAfter = totalPriceBefore + cartTest.items[0].price;
 
-      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+      const item = screen.getByLabelText(`CartItem-${cartTest.items[0].title}`);
 
       // ACT
       userEvent.click(within(item).getByRole('button', { name: '+' }));
 
       // ASSERT
-      expect(within(cartTotal).getByText(`${totalPriceAfter}`)).toBeInTheDocument();
+      expect(within(cartTotal).getByText(`$${totalPriceAfter}`)).toBeInTheDocument();
     });
   });
   describe('When the decrement button is clicked', () => {
     it('should decrease the quantity of a product', () => {
       // ARRANGE
-      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+      const item = screen.getByLabelText(`CartItem-${cartTest.items[0].title}`);
 
       // ACT
       userEvent.click(within(item).getByRole('button', { name: '-' }));
@@ -100,20 +100,20 @@ describe('When the Cart has 1 or more items', () => {
 
     it('should decrease the total price of the Cart', () => {
       // ARRANGE
-      const cartTotal = screen.getByText(/Total/i);
+      const cartTotal = screen.getByLabelText(/Cart Total/i);
       const totalPriceBefore = cartTest.items.reduce(
         (acc, curr) => acc + curr.price * curr.quantity,
         0,
       );
       const totalPriceAfter = totalPriceBefore - cartTest.items[0].price;
 
-      const item = screen.getByText(`${cartTest.items[0].title}`).parentElement as HTMLElement;
+      const item = screen.getByLabelText(`CartItem-${cartTest.items[0].title}`);
 
       // ACT
       userEvent.click(within(item).getByRole('button', { name: '-' }));
 
       // ASSERT
-      expect(within(cartTotal).getByText(`${totalPriceAfter}`)).toBeInTheDocument();
+      expect(within(cartTotal).getByText(`$${totalPriceAfter}`)).toBeInTheDocument();
     });
   });
 });

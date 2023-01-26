@@ -1,3 +1,4 @@
+import { List } from '@mui/material';
 import { Product } from '../../../api/models/product';
 import { messages } from '../../../constants/messages';
 import { CartProduct } from '../../../store/cart/cart.model';
@@ -11,15 +12,17 @@ type Props = {
 
 const CartList = ({ items, onIncrement, onDecrement }: Props) => {
   return (
-    <ul>
+    <List dense={false} sx={{ width: '500px', padding: '10px' }}>
       {items.length !== 0 ? (
         items.map(item => (
           <CartItem item={item} key={item.id} onIncrement={onIncrement} onDecrement={onDecrement} />
         ))
       ) : (
-        <h4>{messages.CART.isEmptyMsg}</h4>
+        <h4 style={{ height: '100%', textAlign: 'center', marginTop: '30%' }}>
+          {messages.CART.isEmptyMsg}
+        </h4>
       )}
-    </ul>
+    </List>
   );
 };
 
