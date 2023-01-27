@@ -1,12 +1,15 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { Product } from '../../../../api/models/product';
+import { messages } from '../../../../constants/messages';
 
 type Props = {
   item: Product;
-  onClick: () => void;
+  isOnCart: boolean;
+  onAddToCart: () => void;
+  onRemoveFromCart: () => void;
 };
 
-const CardItem = ({ item, onClick }: Props) => {
+const CardItem = ({ item, isOnCart, onAddToCart, onRemoveFromCart }: Props) => {
   return (
     <Card sx={{ maxWidth: 375 }}>
       <CardMedia
@@ -27,9 +30,15 @@ const CardItem = ({ item, onClick }: Props) => {
         <Typography>{item.price}</Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' variant='outlined' color='secondary' onClick={onClick}>
-          Add to Cart
-        </Button>
+        {isOnCart ? (
+          <Button size='small' variant='outlined' color='error' onClick={onRemoveFromCart}>
+            {messages.PRODUCT.removeFromCart}
+          </Button>
+        ) : (
+          <Button size='small' variant='outlined' color='secondary' onClick={onAddToCart}>
+            {messages.PRODUCT.addToCart}
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

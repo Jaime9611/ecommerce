@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../../../../api/models/product';
-import { addtoCart } from '../../../../store/cart/cartSlice';
+import { addtoCart, CartState, removeFromCart } from '../../../../store/cart/cartSlice';
 import { AppDispatch } from '../../../../store/store';
 import Grid from '@mui/material/Grid';
 import CardItem from '../molecules/CardItem';
@@ -12,15 +12,30 @@ type CardListProps = {
 const CardList = ({ data }: CardListProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleClick = (item: Product) => {
+  const { items } = useSelector(CartState);
+
+  const handleAddToCart = (item: Product) => {
     dispatch(addtoCart(item));
+  };
+
+  const handleRemoveFromCart = (item: Product) => {
+    dispatch(removeFromCart(item));
+  };
+
+  const findProductOnCart = (product: Product) => {
+    return items.find(item => item.title === product.title) ? true : false;
   };
 
   return (
     <Grid container spacing={2}>
       {data.map(product => (
         <Grid item xs={2} key={product.id}>
-          <CardItem item={product} onClick={() => handleClick(product)} />
+          <CardItem
+            item={product}
+            isOnCart={findProductOnCart(product)}
+            onRemoveFromCart={() => handleRemoveFromCart(product)}
+            onAddToCart={() => handleAddToCart(product)}
+          />
         </Grid>
       ))}
     </Grid>
