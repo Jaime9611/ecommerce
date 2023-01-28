@@ -20,11 +20,14 @@ import Menu from '../../../lib/Menu';
 import SettingsMenu from '../../atoms/SettingsMenu';
 import { useAuth } from '../../../hooks/useAuth';
 import Cart from '../Cart/Cart';
+import { useSelector } from 'react-redux';
+import { CartState } from '../../../store/cart/cartSlice';
 
 // TODO: Tests for Nav
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { items } = useSelector(CartState);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -137,7 +140,7 @@ const Header = () => {
             <Authorized when={u => u.user.sub !== '' && u.isAuth}>
               <NotificationIcon count={7} />
             </Authorized>
-            <CartIcon count={5} onClick={() => toggleCart(true)} />
+            <CartIcon count={items.length} onClick={() => toggleCart(true)} />
             <Cart open={isCartOpen} onClose={() => toggleCart(false)} />
             <Authorized when={u => u.isAuth}>
               <Avatar
