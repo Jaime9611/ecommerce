@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
+import { LOCAL_HOST } from '../../constants/paths';
 import { renderWithProviders } from '../../tests/test-utils';
 import Home from './Home';
 
@@ -14,7 +15,7 @@ const responseJson = {
 };
 
 export const handlers = [
-  rest.get('http://localhost:8081/api/v1/products', (req, res, ctx) => {
+  rest.get(`${LOCAL_HOST}/products`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(responseJson), ctx.delay(150));
   }),
 ];

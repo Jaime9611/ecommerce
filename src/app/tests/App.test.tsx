@@ -9,6 +9,7 @@ import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
 import { renderWithProviders } from './test-utils';
+import { LOCAL_HOST } from '../constants/paths';
 
 const responseJson = `"data": [
   {"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafjal",
@@ -20,7 +21,7 @@ const responseJson = `"data": [
 ]`;
 
 export const handlers = [
-  rest.get('http://localhost:8081/api/v1/products', (req, res, ctx) => {
+  rest.get(`${LOCAL_HOST}/products`, (req, res, ctx) => {
     return res(ctx.json(responseJson), ctx.delay(150));
   }),
 ];
