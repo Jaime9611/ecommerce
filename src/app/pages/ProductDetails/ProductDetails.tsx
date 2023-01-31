@@ -24,7 +24,8 @@ const ProductDetails = () => {
   }
 
   if (error) {
-    return <Navigate to='*' />;
+    // TODO: Not found page for products
+    return <Navigate to='/not-found-product' />;
   }
 
   return (

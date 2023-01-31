@@ -18,6 +18,7 @@ const responseJson = {
 };
 
 export const handlers = [
+  // TODO: ADD CONSTANT PATH FOR PRODUCTS
   rest.get(`${LOCAL_HOST}/products`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(responseJson), ctx.delay(150));
   }),
@@ -31,6 +32,7 @@ afterAll(() => server.close());
 
 it('should render a Product Details page', async () => {
   renderWithProviders(
+    // TODO: Add product path in constants and here.
     <MemoryRouter initialEntries={[`/product/${responseJson.data[0].id}`]}>
       <Navigator />
     </MemoryRouter>,
