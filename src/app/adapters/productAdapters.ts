@@ -12,3 +12,15 @@ export const productsFromApi = (products: ProductApi[]): Product[] => {
     };
   });
 };
+
+export const productsToApi = (products: Product[]): ProductApi[] => {
+  return products.map(product => {
+    return {
+      id: product.id,
+      name: product.title,
+      desc: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    };
+  });
+};
