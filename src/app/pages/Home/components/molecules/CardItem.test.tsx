@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Product } from '../../../../api/models/product';
 import { messages } from '../../../../constants/messages';
+import { Product } from '../../../../models/product';
 import CardItem from './CardItem';
 
 it('should display product title and price', () => {

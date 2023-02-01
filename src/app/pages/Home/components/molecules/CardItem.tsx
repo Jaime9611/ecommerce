@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { Product } from '../../../../api/models/product';
 import { messages } from '../../../../constants/messages';
+import { Product } from '../../../../models/product';
 
 type Props = {
   item: Product;

@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Product } from '../../../api/models/product';
+import { Product } from '../../../models/product';
 import { CartState, decrementQuantity, incrementQuantity } from '../../../store/cart/cartSlice';
 import { AppDispatch } from '../../../store/store';
 import CartList from '../../molecules/CartList/CartList';

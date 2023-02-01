@@ -1,19 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
 import { MemoryRouter } from 'react-router';
-import { Product } from '../../api/models/product';
 import { LOCAL_HOST } from '../../constants/paths';
 import Navigator from '../../routes/Navigator';
-import { setContext } from '../../tests/helpers';
 import { renderWithProviders } from '../../tests/test-utils';
 
 const responseJson = {
   status: 'success',
   message: 'Products Retrieved',
   data: [
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal', title: 'Call of Duty', price: 20.38 },
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafackl', title: 'God of War 3', price: 34.38 },
+    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal', name: 'Call of Duty', price: 20.38 },
+    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafackl', name: 'God of War 3', price: 34.38 },
   ],
 };
 
@@ -39,6 +37,6 @@ it('should render a Product Details page', async () => {
   );
 
   expect(
-    await screen.findByRole('heading', { name: responseJson.data[0].title }),
+    await screen.findByRole('heading', { name: responseJson.data[0].name }),
   ).toBeInTheDocument();
 });

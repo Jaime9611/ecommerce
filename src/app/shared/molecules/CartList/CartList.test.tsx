@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '../../../api/models/product';
 import { messages } from '../../../constants/messages';
+import { Product } from '../../../models/product';
 import { CartProduct } from '../../../store/cart/cart.model';
 import CartList from './CartList';
 

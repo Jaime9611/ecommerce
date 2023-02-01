@@ -1,5 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
-import { Product } from '../../api/models/product';
+import { Product } from '../../models/product';
 
 export interface ProductsStore {
   products: Product[];

@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Product } from '../../../../api/models/product';
 import { addtoCart, CartState, removeFromCart } from '../../../../store/cart/cartSlice';
 import { AppDispatch } from '../../../../store/store';
 import Grid from '@mui/material/Grid';
 import CardItem from '../molecules/CardItem';
+import { Product } from '../../../../models/product';
 
 type CardListProps = {
   data: Product[];

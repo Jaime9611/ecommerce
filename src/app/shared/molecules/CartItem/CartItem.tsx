@@ -1,8 +1,8 @@
 import { IconButton, ListItem, ListItemText } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { Product } from '../../../api/models/product';
 import { CartProduct } from '../../../store/cart/cart.model';
+import { Product } from '../../../models/product';
 
 type CartItemProps = {
   item: CartProduct;
