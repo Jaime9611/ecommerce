@@ -1,6 +1,6 @@
 import { List } from '@mui/material';
-import { Product } from '../../../api/models/product';
 import { messages } from '../../../constants/messages';
+import { Product } from '../../../models/product';
 import { CartProduct } from '../../../store/cart/cart.model';
 import CartItem from '../CartItem/CartItem';
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Product } from '../../api/models/product';
+import { Product } from '../../models/product';
 import { RootState } from '../store';
 import { fetchAllProducts } from './products.action';
 import { ProductsStore } from './products.model';

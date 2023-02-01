@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Product } from '../../../api/models/product';
+import { Product } from '../../../models/product';
 import { CartProduct } from '../../../store/cart/cart.model';
 import CartItem from './CartItem';
 

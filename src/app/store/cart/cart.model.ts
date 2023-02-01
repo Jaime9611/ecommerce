@@ -1,4 +1,4 @@
-import { Product } from '../../api/models/product';
+import { Product } from '../../models/product';
 
 export interface CartStore {
   items: CartProduct[];

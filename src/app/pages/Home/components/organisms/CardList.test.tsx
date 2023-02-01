@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '../../../../api/models/product';
+import { Product } from '../../../../models/product';
 import { renderWithProviders } from '../../../../tests/test-utils';
 import CardList from './CardList';
 

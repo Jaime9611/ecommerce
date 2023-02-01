@@ -1,7 +1,7 @@
-export interface Product {
+export interface ProductApi {
   id: string;
-  title: string;
+  name: string;
   price: number;
   imageUrl: string;
-  description: string;
+  desc: string;
 }
