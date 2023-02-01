@@ -1,4 +1,5 @@
 import { Product } from '../../models/product';
+import { ProductApi } from './product';
 
 export interface ApiResponse {
   status: string;
@@ -10,5 +11,5 @@ export interface ProductResponse extends ApiResponse {
 }
 
 export interface ProductListResponse extends ApiResponse {
-  data: Product[];
+  data: ProductApi[];
 }

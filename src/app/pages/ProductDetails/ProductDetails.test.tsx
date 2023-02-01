@@ -11,8 +11,8 @@ const responseJson = {
   status: 'success',
   message: 'Products Retrieved',
   data: [
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal', title: 'Call of Duty', price: 20.38 },
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafackl', title: 'God of War 3', price: 34.38 },
+    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal', name: 'Call of Duty', price: 20.38 },
+    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafackl', name: 'God of War 3', price: 34.38 },
   ],
 };
 
