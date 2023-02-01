@@ -8,6 +8,7 @@ import Header from '../shared/organisms/Header/Header';
 import Protected from './Protected';
 
 import routes from './constants/routes.json';
+import ProductDetails from '../pages/ProductDetails/ProductDetails';
 
 const Navigator = () => {
   const { isAdmin, isAuth } = useAuth();
@@ -18,6 +19,9 @@ const Navigator = () => {
       <Routes>
         {/* All */}
         <Route path={routes.home.path} element={<Home />} />
+        <Route path={`${routes.product_details.path}`}>
+          <Route path=':id' element={<ProductDetails />} />
+        </Route>
         <Route path='*' element={<div>Not Found</div>} />
 
         {/* Public Only */}

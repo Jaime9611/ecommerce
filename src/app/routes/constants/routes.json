@@ -1,5 +1,6 @@
 {
   "home": { "name": "Home", "path": "/" },
+  "product_details": { "name": "Product Details", "path": "/product" },
   "admin": { "name": "Admin", "path": "/admin" },
   "login": { "name": "Login", "path": "/login" }
 }
