@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
 import { MemoryRouter } from 'react-router';
 import { LOCAL_HOST } from '../../constants/paths';
 import Navigator from '../../routes/Navigator';
-import { setContext } from '../../tests/helpers';
 import { renderWithProviders } from '../../tests/test-utils';
 
 const responseJson = {
@@ -38,6 +37,6 @@ it('should render a Product Details page', async () => {
   );
 
   expect(
-    await screen.findByRole('heading', { name: responseJson.data[0].title }),
+    await screen.findByRole('heading', { name: responseJson.data[0].name }),
   ).toBeInTheDocument();
 });
