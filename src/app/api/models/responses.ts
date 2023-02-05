@@ -1,4 +1,3 @@
-import { Product } from '../../models/product';
 import { ProductApi } from './product';
 
 export interface ApiResponse {
@@ -7,7 +6,7 @@ export interface ApiResponse {
 }
 
 export interface ProductResponse extends ApiResponse {
-  data: Product;
+  data: ProductApi;
 }
 
 export interface ProductListResponse extends ApiResponse {
