@@ -1,21 +1,26 @@
 import { Container } from '@mui/system';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useParams } from 'react-router';
-import { fetchAllProducts } from '../../store/products/products.action';
-import { ProductState } from '../../store/products/productsSlice';
-import { AppDispatch } from '../../store/store';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { getProductById } from '../../api/products';
+import { Product } from '../../models/product';
 
 const ProductDetails = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
   const { id } = useParams<{ id: string }>();
-
-  const { products, loading, error } = useSelector(ProductState);
-  const productSelected = products.find(product => product.id === id);
+  const [product, setProduct] = useState({} as Product);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAllProducts());
+    const fetchProduct = async () => {
+      setLoading(prev => !prev);
+      const { data } = await getProductById(id as string);
+
+      if (data) {
+        setLoading(prev => !prev);
+        setProduct(data);
+      }
+    };
+
+    fetchProduct();
   }, []);
 
   // TODO: Loading Component.
@@ -23,14 +28,14 @@ const ProductDetails = () => {
     return <p>Loading...</p>;
   }
 
-  if (error) {
-    // TODO: Not found page for products
-    return <Navigate to='/not-found-product' />;
-  }
+  // if (error) {
+  //   // TODO: Not found page for products
+  //   return <Navigate to='/not-found-product' />;
+  // }
 
   return (
     <Container>
-      <h1>{productSelected?.title}</h1>
+      <h1>{product?.title}</h1>
     </Container>
   );
 };

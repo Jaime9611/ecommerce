@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
 import { MemoryRouter } from 'react-router';
@@ -9,16 +9,19 @@ import { renderWithProviders } from '../../tests/test-utils';
 const responseJson = {
   status: 'success',
   message: 'Products Retrieved',
-  data: [
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal', name: 'Call of Duty', price: 20.38 },
-    { id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafackl', name: 'God of War 3', price: 34.38 },
-  ],
+  data: {
+    id: 'ofjaifj2jr29fafjalfjla-jofj0q-fafjal',
+    name: 'Call of Duty',
+    price: 20.38,
+    desc: 'dff',
+    imageUrl: 'fajfa',
+  },
 };
 
 export const handlers = [
   // TODO: ADD CONSTANT PATH FOR PRODUCTS
-  rest.get(`${LOCAL_HOST}/products`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(responseJson), ctx.delay(150));
+  rest.get(`${LOCAL_HOST}/products/product/${responseJson.data.id}`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(responseJson), ctx.delay(10));
   }),
 ];
 
@@ -29,14 +32,12 @@ afterEach(() => server.restoreHandlers());
 afterAll(() => server.close());
 
 it('should render a Product Details page', async () => {
-  renderWithProviders(
+  await renderWithProviders(
     // TODO: Add product path in constants and here.
-    <MemoryRouter initialEntries={[`/product/${responseJson.data[0].id}`]}>
+    <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
       <Navigator />
     </MemoryRouter>,
   );
 
-  expect(
-    await screen.findByRole('heading', { name: responseJson.data[0].name }),
-  ).toBeInTheDocument();
+  expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
 });
