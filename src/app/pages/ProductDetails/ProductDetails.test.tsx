@@ -1,10 +1,11 @@
-import { screen, waitFor } from '@testing-library/dom';
+import { findByText, screen, waitFor } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
 import { MemoryRouter } from 'react-router';
 import { LOCAL_HOST } from '../../constants/paths';
 import Navigator from '../../routes/Navigator';
 import { renderWithProviders } from '../../tests/test-utils';
+import ProductDetails from './ProductDetails';
 
 const responseJson = {
   status: 'success',
@@ -31,13 +32,39 @@ beforeAll(() => server.listen());
 afterEach(() => server.restoreHandlers());
 afterAll(() => server.close());
 
-it('should render a Product Details page', async () => {
-  await renderWithProviders(
-    // TODO: Add product path in constants and here.
-    <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
-      <Navigator />
-    </MemoryRouter>,
-  );
+describe('Product Detail info', () => {
+  it('should render a Product Details page', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
 
-  expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
+    expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
+  });
+
+  it('should show a description of the product', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByText(responseJson.data.desc)).toBeInTheDocument();
+  });
+
+  it('should have a add to cart button', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
+
+    const addToCartBtn = await screen.findByRole('button', { name: /add to cart/i });
+
+    expect(addToCartBtn).toBeInTheDocument();
+  });
 });

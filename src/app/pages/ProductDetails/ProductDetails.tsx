@@ -1,3 +1,4 @@
+import { Button, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -35,7 +36,9 @@ const ProductDetails = () => {
 
   return (
     <Container>
-      <h1>{product?.title}</h1>
+      <Typography variant='h2'>{product?.title}</Typography>
+      <p>{product?.description}</p>
+      <Button>Add to Cart</Button>
     </Container>
   );
 };
