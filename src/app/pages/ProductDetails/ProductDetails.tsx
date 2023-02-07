@@ -37,7 +37,7 @@ const ProductDetails = () => {
   return (
     <Container>
       <Typography variant='h2'>{product?.title}</Typography>
-      <p>{product?.description}</p>
+      <Typography variant='body1'>{product?.description}</Typography>
       <Button>Add to Cart</Button>
     </Container>
   );

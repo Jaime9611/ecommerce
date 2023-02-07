@@ -9,6 +9,8 @@ export const productApiToProduct = (product: ProductApi): Product => {
     description: product.desc,
     imageUrl: product.imageUrl,
     price: product.price,
+    stock: product.inventory,
+    categories: product.categories,
   };
 };
 
@@ -20,6 +22,8 @@ export const productToProductApi = (product: Product): ProductApi => {
     desc: product.description,
     price: product.price,
     imageUrl: product.imageUrl,
+    inventory: product.stock,
+    categories: product.categories,
   };
 };
 

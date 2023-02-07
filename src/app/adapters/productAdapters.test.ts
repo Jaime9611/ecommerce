@@ -10,6 +10,8 @@ describe('ProductApi to Product adapter', () => {
       price: 23,
       desc: 'Test Description',
       imageUrl: 'Image url test',
+      inventory: 23,
+      categories: [{ id: 'testId1', name: 'Action' }],
     },
   ];
 
@@ -23,6 +25,8 @@ describe('ProductApi to Product adapter', () => {
         price: expect.any(Number),
         description: expect.any(String),
         imageUrl: expect.any(String),
+        stock: expect.any(Number),
+        categories: expect.any(Array),
       }),
     );
   });
@@ -44,6 +48,8 @@ describe('Product to ProductApi adapter', () => {
       price: 23,
       description: 'Test Description',
       imageUrl: 'Image url test',
+      stock: 3,
+      categories: [{ id: 'testId1', name: 'Action' }],
     },
   ];
 
