@@ -1,11 +1,10 @@
-import { findByText, screen, waitFor } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
 import { MemoryRouter } from 'react-router';
 import { LOCAL_HOST } from '../../constants/paths';
 import Navigator from '../../routes/Navigator';
 import { renderWithProviders } from '../../tests/test-utils';
-import ProductDetails from './ProductDetails';
 
 const responseJson = {
   status: 'success',
@@ -16,6 +15,7 @@ const responseJson = {
     price: 20.38,
     desc: 'dff',
     imageUrl: 'fajfa',
+    inventory: { id: '1', quantity: 34 },
   },
 };
 
@@ -44,7 +44,7 @@ describe('Product Detail info', () => {
     expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
   });
 
-  it('should show a description of the product', async () => {
+  it('should show info about the product', async () => {
     renderWithProviders(
       // TODO: Add product path in constants and here.
       <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
@@ -52,7 +52,10 @@ describe('Product Detail info', () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText(responseJson.data.desc)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(responseJson.data.desc)));
+
+    expect(screen.getByText(responseJson.data.desc)).toBeInTheDocument();
+    expect(screen.getByText(responseJson.data.inventory.quantity)).toBeInTheDocument();
   });
 
   it('should have a add to cart button', async () => {

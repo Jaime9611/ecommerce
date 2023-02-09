@@ -13,6 +13,8 @@ it('should show all the items of the given array', () => {
       description: 'Desc',
       imageUrl: 'Image',
       quantity: 2,
+      stock: 1,
+      categories: [],
     },
     {
       id: '2',
@@ -21,6 +23,8 @@ it('should show all the items of the given array', () => {
       description: 'Desc',
       imageUrl: 'Image 2',
       quantity: 1,
+      stock: 1,
+      categories: [],
     },
   ];
 

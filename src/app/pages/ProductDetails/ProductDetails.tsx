@@ -1,4 +1,5 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -12,11 +13,11 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      setLoading(prev => !prev);
+      setLoading(true);
       const { data } = await getProductById(id as string);
 
       if (data) {
-        setLoading(prev => !prev);
+        setLoading(false);
         setProduct(data);
       }
     };
@@ -35,10 +36,46 @@ const ProductDetails = () => {
   // }
 
   return (
-    <Container>
-      <Typography variant='h2'>{product?.title}</Typography>
-      <Typography variant='body1'>{product?.description}</Typography>
-      <Button>Add to Cart</Button>
+    <Container sx={{ mt: 6 }}>
+      <Paper elevation={2} sx={{ p: 3 }}>
+        <Box display='flex'>
+          <Box flex={1} display='flex' flexDirection='column' justifyContent='space-between'>
+            <img
+              src={product?.imageUrl}
+              alt={product?.title}
+              style={{
+                width: '180px',
+                height: '200px',
+                objectFit: 'cover',
+                borderRadius: '5px',
+                marginBottom: '13px',
+              }}
+            />
+          </Box>
+          <Box p={3}>
+            <Typography variant='h3' sx={{ mb: '20px' }}>
+              {product?.title}
+            </Typography>
+            <Typography variant='body1' sx={{ mb: 3 }}>
+              {product?.description}
+            </Typography>
+            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>
+              Stock: <i style={{ color: grey[800] }}>{product?.stock}</i>
+            </Typography>
+            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>
+              Price: $<i style={{ color: grey[800] }}>{product?.price}</i>
+            </Typography>
+            <Button
+              size='large'
+              sx={{ justifySelf: 'flex-end', alignSelf: 'center' }}
+              variant='contained'
+              color='secondary'
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
     </Container>
   );
 };

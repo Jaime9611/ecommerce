@@ -5,8 +5,24 @@ import CardList from './CardList';
 
 it('should display the products title and price', () => {
   const products: Product[] = [
-    { id: '1', title: 'Test Game 1', description: 'Desc 1', price: 30, imageUrl: 'image url' },
-    { id: '2', title: 'Test Game 2', description: 'Desc 2', price: 40, imageUrl: 'image url' },
+    {
+      id: '1',
+      title: 'Test Game 1',
+      description: 'Desc 1',
+      price: 30,
+      imageUrl: 'image url',
+      stock: 1,
+      categories: [],
+    },
+    {
+      id: '2',
+      title: 'Test Game 2',
+      description: 'Desc 2',
+      price: 40,
+      imageUrl: 'image url',
+      stock: 2,
+      categories: [],
+    },
   ];
 
   renderWithProviders(<CardList data={products} />);
@@ -19,8 +35,24 @@ it('should display the products title and price', () => {
 
 it('should display the list of products', () => {
   const products: Product[] = [
-    { id: '1', title: 'Test Game 1', description: 'Desc 1', price: 30, imageUrl: 'image url' },
-    { id: '2', title: 'Test Game 2', description: 'Desc 2', price: 40, imageUrl: 'image url' },
+    {
+      id: '1',
+      title: 'Test Game 1',
+      description: 'Desc 1',
+      price: 30,
+      imageUrl: 'image url',
+      stock: 1,
+      categories: [],
+    },
+    {
+      id: '2',
+      title: 'Test Game 2',
+      description: 'Desc 2',
+      price: 40,
+      imageUrl: 'image url',
+      stock: 1,
+      categories: [],
+    },
   ];
 
   renderWithProviders(<CardList data={products} />);

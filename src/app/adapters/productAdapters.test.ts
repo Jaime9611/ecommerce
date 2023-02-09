@@ -10,7 +10,7 @@ describe('ProductApi to Product adapter', () => {
       price: 23,
       desc: 'Test Description',
       imageUrl: 'Image url test',
-      inventory: 23,
+      inventory: { id: '1', quantity: 3 },
       categories: [{ id: 'testId1', name: 'Action' }],
     },
   ];

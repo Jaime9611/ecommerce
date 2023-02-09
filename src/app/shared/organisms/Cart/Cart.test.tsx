@@ -32,6 +32,8 @@ describe('When the Cart has 1 or more items', () => {
         imageUrl: 'Img 1',
         description: 'Product Descp 1',
         quantity: 2,
+        stock: 1,
+        categories: [],
       },
       {
         id: '2',
@@ -40,6 +42,8 @@ describe('When the Cart has 1 or more items', () => {
         imageUrl: 'Img 2',
         description: 'Product Descp 2',
         quantity: 3,
+        stock: 1,
+        categories: [],
       },
     ],
     cartTotal: 0,

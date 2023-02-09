@@ -11,10 +11,13 @@ it('should display product title and price', () => {
     description: 'Desc test',
     price: 30,
     imageUrl: 'image url',
+    stock: 1,
+    categories: [],
   };
 
   const testAddFunc = jest.fn();
   const testRemoveFunc = jest.fn();
+  const testClickFunc = jest.fn();
 
   render(
     <CardItem
@@ -22,6 +25,7 @@ it('should display product title and price', () => {
       isOnCart={false}
       onAddToCart={testAddFunc}
       onRemoveFromCart={testRemoveFunc}
+      onClick={testClickFunc}
     />,
   );
 
@@ -36,15 +40,20 @@ it('should show the Add Button when Product is not on the Cart', () => {
     imageUrl: 'Image url',
     description: 'Desc test',
     price: 30,
+    stock: 1,
+    categories: [],
   };
   const testAddFunc = jest.fn();
   const testRemoveFunc = jest.fn();
+  const testClickFunc = jest.fn();
+
   render(
     <CardItem
       item={product}
       isOnCart={false}
       onAddToCart={testAddFunc}
       onRemoveFromCart={testRemoveFunc}
+      onClick={testClickFunc}
     />,
   );
 
@@ -60,15 +69,20 @@ it('should Not show the Add Button when Product is on the Cart', () => {
     imageUrl: 'Image url',
     description: 'Desc test',
     price: 30,
+    stock: 1,
+    categories: [],
   };
   const testAddFunc = jest.fn();
   const testRemoveFunc = jest.fn();
+  const testClickFunc = jest.fn();
+
   render(
     <CardItem
       item={product}
       isOnCart={true}
       onAddToCart={testAddFunc}
       onRemoveFromCart={testRemoveFunc}
+      onClick={testClickFunc}
     />,
   );
 
@@ -86,15 +100,20 @@ it('should call the Add function when Add button is clicked', () => {
     imageUrl: 'Image url',
     description: 'Desc test',
     price: 30,
+    stock: 1,
+    categories: [],
   };
   const testAddFunc = jest.fn();
   const testRemoveFunc = jest.fn();
+  const testClickFunc = jest.fn();
+
   render(
     <CardItem
       item={product}
       isOnCart={false}
       onAddToCart={testAddFunc}
       onRemoveFromCart={testRemoveFunc}
+      onClick={testClickFunc}
     />,
   );
 
@@ -111,10 +130,13 @@ it('should call the Remove function when Remove button is clicked', () => {
     imageUrl: 'Image url',
     description: 'Desc test',
     price: 30,
+    stock: 1,
+    categories: [],
   };
 
   const testAddFunc = jest.fn();
   const testRemoveFunc = jest.fn();
+  const testClickFunc = jest.fn();
 
   render(
     <CardItem
@@ -122,6 +144,7 @@ it('should call the Remove function when Remove button is clicked', () => {
       isOnCart={true}
       onAddToCart={testAddFunc}
       onRemoveFromCart={testRemoveFunc}
+      onClick={testClickFunc}
     />,
   );
 
