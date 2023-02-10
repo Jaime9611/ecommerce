@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Product } from '../../../../models/product';
 import { renderWithProviders } from '../../../../tests/test-utils';
 import CardList from './CardList';
@@ -25,7 +26,11 @@ it('should display the products title and price', () => {
     },
   ];
 
-  renderWithProviders(<CardList data={products} />);
+  renderWithProviders(
+    <BrowserRouter>
+      <CardList data={products} />
+    </BrowserRouter>,
+  );
 
   expect(screen.getByText(products[0].title)).toBeInTheDocument();
   expect(screen.getByText(products[0].price)).toBeInTheDocument();
@@ -55,7 +60,11 @@ it('should display the list of products', () => {
     },
   ];
 
-  renderWithProviders(<CardList data={products} />);
+  renderWithProviders(
+    <BrowserRouter>
+      <CardList data={products} />
+    </BrowserRouter>,
+  );
 
   expect(screen.getAllByRole('heading').length).toBe(products.length);
 });
