@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { MouseEventHandler } from 'react';
 import { messages } from '../../../../constants/messages';
+import { useCart } from '../../../../hooks/useCart';
 import { Product } from '../../../../models/product';
 
 type Props = {
@@ -11,15 +12,16 @@ type Props = {
   onClick: () => void;
 };
 
-const CardItem = ({ item, isOnCart, onAddToCart, onRemoveFromCart, onClick }: Props) => {
+const CardItem = ({ item, onClick }: Props) => {
+  const { handleAddToCart, handleRemoveFromCart, itemIsOnCart } = useCart();
   const handleClick: MouseEventHandler = e => {
     e.stopPropagation();
     onClick();
   };
 
-  const handleCartBtn = (e, func: () => void) => {
+  const handleCartBtn = (e, func: (item: Product) => void) => {
     e.stopPropagation();
-    func();
+    func(item);
   };
 
   return (
@@ -42,12 +44,12 @@ const CardItem = ({ item, isOnCart, onAddToCart, onRemoveFromCart, onClick }: Pr
         <Typography>{item.price}</Typography>
       </CardContent>
       <CardActions>
-        {isOnCart ? (
+        {itemIsOnCart(item) ? (
           <Button
             size='small'
             variant='outlined'
             color='error'
-            onClick={e => handleCartBtn(e, onRemoveFromCart)}
+            onClick={e => handleCartBtn(e, handleRemoveFromCart)}
           >
             {messages.PRODUCT.removeFromCart}
           </Button>
@@ -56,7 +58,7 @@ const CardItem = ({ item, isOnCart, onAddToCart, onRemoveFromCart, onClick }: Pr
             size='small'
             variant='outlined'
             color='secondary'
-            onClick={e => handleCartBtn(e, onAddToCart)}
+            onClick={e => handleCartBtn(e, handleAddToCart)}
           >
             {messages.PRODUCT.addToCart}
           </Button>
