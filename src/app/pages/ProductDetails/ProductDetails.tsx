@@ -2,14 +2,33 @@ import { Box, Button, Paper, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getProductById } from '../../api/products';
 import { Product } from '../../models/product';
+import { addtoCart, CartState, removeFromCart } from '../../store/cart/cartSlice';
+import { AppDispatch } from '../../store/store';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState({} as Product);
   const [loading, setLoading] = useState(false);
+
+  const { items } = useSelector(CartState);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleAddtoCart = (item: Product) => {
+    dispatch(addtoCart(item));
+  };
+
+  const handleRemoveFromCart = (item: Product) => {
+    dispatch(removeFromCart(item));
+  };
+
+  const findItemOnCart = (product: Product) => {
+    return items.find(item => item.title === product.title) ? true : false;
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -65,14 +84,27 @@ const ProductDetails = () => {
             <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>
               Price: $<i style={{ color: grey[800] }}>{product?.price}</i>
             </Typography>
-            <Button
-              size='large'
-              sx={{ justifySelf: 'flex-end', alignSelf: 'center' }}
-              variant='contained'
-              color='secondary'
-            >
-              Add to Cart
-            </Button>
+            {findItemOnCart(product) ? (
+              <Button
+                size='large'
+                sx={{ justifySelf: 'flex-end', alignSelf: 'center' }}
+                variant='outlined'
+                color='error'
+                onClick={() => handleRemoveFromCart(product)}
+              >
+                Remove from Cart
+              </Button>
+            ) : (
+              <Button
+                size='large'
+                sx={{ justifySelf: 'flex-end', alignSelf: 'center' }}
+                variant='contained'
+                color='secondary'
+                onClick={() => handleAddtoCart(product)}
+              >
+                Add to Cart
+              </Button>
+            )}
           </Box>
         </Box>
       </Paper>
