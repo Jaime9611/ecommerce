@@ -12,6 +12,8 @@ it('should render a Cart Item with title, price and quantity', () => {
     title: 'Test Item',
     price: 20,
     quantity: 2,
+    stock: 1,
+    categories: [],
   };
 
   render(
@@ -35,6 +37,8 @@ it('should have an Increment Quantity button', () => {
     title: 'Test Item',
     price: 20,
     quantity: 2,
+    stock: 1,
+    categories: [],
   };
 
   const testFunc = jest.fn();
@@ -54,6 +58,8 @@ it('should have a Decrement Quantity button', () => {
     title: 'Test Item',
     price: 20,
     quantity: 2,
+    stock: 1,
+    categories: [],
   };
 
   const testFunc = jest.fn();

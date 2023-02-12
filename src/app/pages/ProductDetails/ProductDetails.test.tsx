@@ -15,6 +15,7 @@ const responseJson = {
     price: 20.38,
     desc: 'dff',
     imageUrl: 'fajfa',
+    inventory: { id: '1', quantity: 34 },
   },
 };
 
@@ -31,13 +32,42 @@ beforeAll(() => server.listen());
 afterEach(() => server.restoreHandlers());
 afterAll(() => server.close());
 
-it('should render a Product Details page', async () => {
-  await renderWithProviders(
-    // TODO: Add product path in constants and here.
-    <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
-      <Navigator />
-    </MemoryRouter>,
-  );
+describe('Product Detail info', () => {
+  it('should render a Product Details page', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
 
-  expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
+    expect(await screen.findByText(responseJson.data.name)).toBeInTheDocument();
+  });
+
+  it('should show info about the product', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(screen.getByText(responseJson.data.desc)));
+
+    expect(screen.getByText(responseJson.data.desc)).toBeInTheDocument();
+    expect(screen.getByText(responseJson.data.inventory.quantity)).toBeInTheDocument();
+  });
+
+  it('should have a add to cart button', async () => {
+    renderWithProviders(
+      // TODO: Add product path in constants and here.
+      <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
+        <Navigator />
+      </MemoryRouter>,
+    );
+
+    const addToCartBtn = await screen.findByRole('button', { name: /add to cart/i });
+
+    expect(addToCartBtn).toBeInTheDocument();
+  });
 });
