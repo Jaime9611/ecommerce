@@ -6,14 +6,12 @@ import { Product } from '../../../../models/product';
 
 type Props = {
   item: Product;
-  isOnCart: boolean;
-  onAddToCart: () => void;
-  onRemoveFromCart: () => void;
   onClick: () => void;
 };
 
 const CardItem = ({ item, onClick }: Props) => {
   const { handleAddToCart, handleRemoveFromCart, itemIsOnCart } = useCart();
+
   const handleClick: MouseEventHandler = e => {
     e.stopPropagation();
     onClick();
