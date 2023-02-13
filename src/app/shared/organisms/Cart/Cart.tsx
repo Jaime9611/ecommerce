@@ -1,26 +1,15 @@
 import Drawer from '@mui/material/Drawer';
-import { useDispatch, useSelector } from 'react-redux';
-import { Product } from '../../../models/product';
-import { CartState, decrementQuantity, incrementQuantity } from '../../../store/cart/cartSlice';
-import { AppDispatch } from '../../../store/store';
+
+import { useCart } from '../../../hooks/useCart';
 import CartList from '../../molecules/CartList/CartList';
 
-type CartProps = {
+interface CartProps {
   open: boolean;
   onClose: () => void;
-};
+}
 
 const Cart = ({ onClose, open }: CartProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { items, cartTotal } = useSelector(CartState);
-
-  const handleIncrementQuantity = (item: Product) => {
-    dispatch(incrementQuantity(item));
-  };
-
-  const handleDecrementQuantity = (item: Product) => {
-    dispatch(decrementQuantity(item));
-  };
+  const { items, cartTotal, handleIncrementQuantity, handleDecrementQuantity } = useCart();
 
   return (
     <Drawer open={open} anchor='right' onClose={onClose}>

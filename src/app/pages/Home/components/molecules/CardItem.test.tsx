@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { messages } from '../../../../constants/messages';
+import { useCart } from '../../../../hooks/useCart';
 import { Product } from '../../../../models/product';
+import { renderWithProviders } from '../../../../tests/test-utils';
 import CardItem from './CardItem';
 
 it('should display product title and price', () => {
@@ -15,19 +17,9 @@ it('should display product title and price', () => {
     categories: [],
   };
 
-  const testAddFunc = jest.fn();
-  const testRemoveFunc = jest.fn();
   const testClickFunc = jest.fn();
 
-  render(
-    <CardItem
-      item={product}
-      isOnCart={false}
-      onAddToCart={testAddFunc}
-      onRemoveFromCart={testRemoveFunc}
-      onClick={testClickFunc}
-    />,
-  );
+  renderWithProviders(<CardItem item={product} onClick={testClickFunc} />);
 
   expect(screen.getByText(product.title)).toBeInTheDocument();
   expect(screen.getByText(product.price)).toBeInTheDocument();
@@ -43,19 +35,9 @@ it('should show the Add Button when Product is not on the Cart', () => {
     stock: 1,
     categories: [],
   };
-  const testAddFunc = jest.fn();
-  const testRemoveFunc = jest.fn();
   const testClickFunc = jest.fn();
 
-  render(
-    <CardItem
-      item={product}
-      isOnCart={false}
-      onAddToCart={testAddFunc}
-      onRemoveFromCart={testRemoveFunc}
-      onClick={testClickFunc}
-    />,
-  );
+  renderWithProviders(<CardItem item={product} onClick={testClickFunc} />);
 
   const button = screen.queryByRole('button', { name: messages.PRODUCT.addToCart });
 
@@ -72,19 +54,11 @@ it('should Not show the Add Button when Product is on the Cart', () => {
     stock: 1,
     categories: [],
   };
-  const testAddFunc = jest.fn();
-  const testRemoveFunc = jest.fn();
   const testClickFunc = jest.fn();
 
-  render(
-    <CardItem
-      item={product}
-      isOnCart={true}
-      onAddToCart={testAddFunc}
-      onRemoveFromCart={testRemoveFunc}
-      onClick={testClickFunc}
-    />,
-  );
+  renderWithProviders(<CardItem item={product} onClick={testClickFunc} />, {
+    preloadedState: { cart: { items: [{ ...product, quantity: 2 }], cartTotal: product.price } },
+  });
 
   const addButton = screen.queryByRole('button', { name: messages.PRODUCT.addToCart });
   const removeButton = screen.queryByRole('button', { name: messages.PRODUCT.removeFromCart });
@@ -93,7 +67,7 @@ it('should Not show the Add Button when Product is on the Cart', () => {
   expect(removeButton).toBeInTheDocument();
 });
 
-it('should call the Add function when Add button is clicked', () => {
+it('should call the Add function when Add button is clicked', async () => {
   const product: Product = {
     id: '1',
     title: 'Test Game',
@@ -103,27 +77,31 @@ it('should call the Add function when Add button is clicked', () => {
     stock: 1,
     categories: [],
   };
-  const testAddFunc = jest.fn();
-  const testRemoveFunc = jest.fn();
+
+  const TestComponent = () => {
+    const { items } = useCart();
+
+    return <p data-testid='cart-item'>{items[0]?.id}</p>;
+  };
   const testClickFunc = jest.fn();
 
-  render(
-    <CardItem
-      item={product}
-      isOnCart={false}
-      onAddToCart={testAddFunc}
-      onRemoveFromCart={testRemoveFunc}
-      onClick={testClickFunc}
-    />,
+  renderWithProviders(
+    <>
+      <CardItem item={product} onClick={testClickFunc} />
+      <TestComponent />
+    </>,
   );
 
   const button = screen.getByRole('button', { name: messages.PRODUCT.addToCart });
   userEvent.click(button);
 
-  expect(testAddFunc).toBeCalled();
+  await waitFor(() => screen.getByText(product.id));
+
+  expect(screen.getByTestId('cart-item')).toBeInTheDocument();
+  expect(screen.getByTestId('cart-item').textContent).toEqual(product.id);
 });
 
-it('should call the Remove function when Remove button is clicked', () => {
+it('should call the Remove function when Remove button is clicked', async () => {
   const product: Product = {
     id: '1',
     title: 'Test Game',
@@ -134,22 +112,32 @@ it('should call the Remove function when Remove button is clicked', () => {
     categories: [],
   };
 
-  const testAddFunc = jest.fn();
-  const testRemoveFunc = jest.fn();
+  const TestComponent = () => {
+    const { items } = useCart();
+
+    return <p data-testid='cart-item'>{items.length !== 0 ? items[0]?.id : 'Removed'}</p>;
+  };
+
   const testClickFunc = jest.fn();
 
-  render(
-    <CardItem
-      item={product}
-      isOnCart={true}
-      onAddToCart={testAddFunc}
-      onRemoveFromCart={testRemoveFunc}
-      onClick={testClickFunc}
-    />,
+  renderWithProviders(
+    <>
+      <CardItem item={product} onClick={testClickFunc} />
+      <TestComponent />
+    </>,
+    {
+      preloadedState: { cart: { items: [{ ...product, quantity: 2 }], cartTotal: product.price } },
+    },
   );
 
   const button = screen.getByRole('button', { name: messages.PRODUCT.removeFromCart });
+
+  expect(button).toBeInTheDocument();
+  expect(screen.getByTestId('cart-item').textContent).toEqual(product.id);
+
   userEvent.click(button);
 
-  expect(testRemoveFunc).toBeCalled();
+  await waitFor(() => screen.getByText('Removed'));
+
+  expect(screen.getByTestId('cart-item').textContent).toEqual('Removed');
 });
