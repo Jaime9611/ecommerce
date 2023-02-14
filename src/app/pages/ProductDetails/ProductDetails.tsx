@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { getProductById } from '../../api/products';
 import { useCart } from '../../hooks/useCart';
 import { Product } from '../../models/product';
+import Loading from '../../shared/organisms/Loading/Loading';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,17 +28,14 @@ const ProductDetails = () => {
     fetchProduct();
   }, []);
 
-  // TODO: Loading Component.
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   // if (error) {
   //   // TODO: Not found page for products
   //   return <Navigate to='/not-found-product' />;
   // }
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <Container sx={{ mt: 6 }}>
       <Paper elevation={2} sx={{ p: 3 }}>
         <Box display='flex'>
