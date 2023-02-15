@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router';
 import { LOCAL_HOST } from '../../constants/paths';
 import Navigator from '../../routes/Navigator';
@@ -18,6 +19,8 @@ const responseJson = {
     inventory: { id: '1', quantity: 34 },
   },
 };
+
+const queryClient = new QueryClient();
 
 export const handlers = [
   // TODO: ADD CONSTANT PATH FOR PRODUCTS
@@ -37,7 +40,9 @@ describe('Product Detail info', () => {
     renderWithProviders(
       // TODO: Add product path in constants and here.
       <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
-        <Navigator />
+        <QueryClientProvider client={queryClient}>
+          <Navigator />
+        </QueryClientProvider>
       </MemoryRouter>,
     );
 
@@ -48,7 +53,9 @@ describe('Product Detail info', () => {
     renderWithProviders(
       // TODO: Add product path in constants and here.
       <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
-        <Navigator />
+        <QueryClientProvider client={queryClient}>
+          <Navigator />
+        </QueryClientProvider>
       </MemoryRouter>,
     );
 
@@ -62,7 +69,9 @@ describe('Product Detail info', () => {
     renderWithProviders(
       // TODO: Add product path in constants and here.
       <MemoryRouter initialEntries={[`/product/${responseJson.data.id}`]}>
-        <Navigator />
+        <QueryClientProvider client={queryClient}>
+          <Navigator />
+        </QueryClientProvider>
       </MemoryRouter>,
     );
 
