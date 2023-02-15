@@ -1,15 +1,17 @@
+import { FC, MouseEvent, MouseEventHandler } from 'react';
+
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { MouseEventHandler } from 'react';
+
+import { Product } from '../../../../models/product';
 import { messages } from '../../../../constants/messages';
 import { useCart } from '../../../../hooks/useCart';
-import { Product } from '../../../../models/product';
 
-type Props = {
+interface CartItemProps {
   item: Product;
   onClick: () => void;
-};
+}
 
-const CardItem = ({ item, onClick }: Props) => {
+const CardItem: FC<CartItemProps> = ({ item, onClick }) => {
   const { handleAddToCart, handleRemoveFromCart, itemIsOnCart } = useCart();
 
   const handleClick: MouseEventHandler = e => {
@@ -17,7 +19,7 @@ const CardItem = ({ item, onClick }: Props) => {
     onClick();
   };
 
-  const handleCartBtn = (e, func: (item: Product) => void) => {
+  const handleCartBtn = (e: MouseEvent<HTMLButtonElement>, func: (item: Product) => void) => {
     e.stopPropagation();
     func(item);
   };
