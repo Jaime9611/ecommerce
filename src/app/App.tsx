@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import Navigator from './routes/Navigator';
 import { store, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
@@ -11,9 +14,11 @@ const App = () => {
       <CssBaseline />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <Navigator />
-          </BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+              <Navigator />
+            </BrowserRouter>
+          </QueryClientProvider>
         </PersistGate>
       </Provider>
     </>

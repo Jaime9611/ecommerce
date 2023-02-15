@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import { Container } from '@mui/material';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Container } from '@mui/material';
+
 import { AppDispatch } from '../../store/store';
 import { fetchAllProducts } from '../../store/products/products.action';
 import { ProductState } from '../../store/products/productsSlice';
 import CardList from './components/organisms/CardList';
+import Loading from '../../shared/organisms/Loading/Loading';
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +16,9 @@ const Home = () => {
     dispatch(fetchAllProducts());
   }, []);
 
-  const { products } = useSelector(ProductState);
+  const { products, loading } = useSelector(ProductState);
+
+  if (loading) return <Loading />;
 
   return (
     <Container maxWidth='xl' sx={{ mt: 3 }}>
