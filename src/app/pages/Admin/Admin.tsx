@@ -1,9 +1,6 @@
-import { Container, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Dashboard } from './components/Dashboard';
-import { Box } from '@mui/system';
-import { Outlet, Route, Routes } from 'react-router-dom';
-
-import routes from '../../routes/constants/routes.json';
+import { Outlet } from 'react-router-dom';
 
 const Admin = () => {
   return (
