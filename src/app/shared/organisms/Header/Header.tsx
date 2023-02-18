@@ -13,7 +13,7 @@ import NavBrand from '../../atoms/NavBrand';
 import Box from '../../../lib/Box';
 import CartIcon from '../../atoms/icons/CartIcon';
 import NotificationIcon from '../../atoms/icons/NotificationIcon';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Avatar from '../../atoms/icons/Avatar';
 import HamburgerMenu from '../../atoms/HamburgerMenu';
 import Menu from '../../../lib/Menu';
@@ -28,6 +28,7 @@ const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { items } = useSelector(CartState);
+  const location = useLocation();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -62,6 +63,10 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  if (location.pathname.startsWith(routes.admin.path)) {
+    return <></>;
+  }
 
   return (
     <AppBar color='secondary' position='static'>

@@ -36,7 +36,10 @@ const Navigator = () => {
 
         {/* Admins Only */}
         <Route element={<Protected redirect='login' hasAccess={isAdmin} />}>
-          <Route path={routes.admin.path} element={<Admin />} />
+          <Route path={routes.admin.path} element={<Admin />}>
+            <Route path='products' element={<div>Hello products</div>} />
+            <Route path='orders' element={<div>Hello orders</div>} />
+          </Route>
         </Route>
       </Routes>
     </>
