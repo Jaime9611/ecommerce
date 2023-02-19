@@ -8,7 +8,11 @@ type Props = {
 
 const NotificationIcon = (props: Props) => {
   return (
-    <IconButton size='large' aria-label='show 17 new notifications' color='inherit' sx={{ mr: 1 }}>
+    <IconButton
+      size='large'
+      aria-label='show 17 new notifications'
+      sx={{ mr: 1, color: 'primary.dark' }}
+    >
       <Badge badgeContent={props.count} color='error'>
         <NotificationsIcon />
       </Badge>

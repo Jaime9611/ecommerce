@@ -22,12 +22,13 @@ import { useAuth } from '../../../hooks/useAuth';
 import Cart from '../Cart/Cart';
 import { useSelector } from 'react-redux';
 import { CartState } from '../../../store/cart/cartSlice';
-import { useTheme } from '@mui/material';
+import { IconButton, useTheme } from '@mui/material';
 import { CustomTheme } from '../../../theme';
+import { DarkMode, LightMode } from '@mui/icons-material';
 
 // TODO: Tests for Nav
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, changeTheme } = useAuth();
   const navigate = useNavigate();
   const { items } = useSelector(CartState);
   const location = useLocation();
@@ -74,10 +75,10 @@ const Header = () => {
   const alt = theme.palette.background.alt;
 
   return (
-    <Box sx={{ bgcolor: alt }}>
+    <AppBar sx={{ bgcolor: alt }} position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.dark' }} />
           <NavBrand displayXs='none' displayMd='flex' to={routes.home.path}>
             ECOM
           </NavBrand>
@@ -105,7 +106,7 @@ const Header = () => {
               </Authorized>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'primary.dark' }} />
           <NavBrand flexGrow={1} displayMd='none' displayXs='flex' to={routes.home.path}>
             Ecom
           </NavBrand>
@@ -114,7 +115,7 @@ const Header = () => {
               <Button
                 key={routes.home.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: 'block', color: 'neutral.main' }}
+                sx={{ my: 2, display: 'block', color: 'neutral.main', fontSize: '.8rem' }}
               >
                 {routes.home.name}
               </Button>
@@ -127,7 +128,7 @@ const Header = () => {
                 <Button
                   key={routes.admin.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, display: 'block', color: 'neutral.main' }}
+                  sx={{ my: 2, display: 'block', color: 'neutral.main', fontSize: '.8rem' }}
                 >
                   {routes.admin.name}
                 </Button>
@@ -138,7 +139,7 @@ const Header = () => {
                 <Button
                   key={routes.login.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'neutral.main', display: 'block', fontSize: '.8rem' }}
                 >
                   {routes.login.name}
                 </Button>
@@ -150,6 +151,13 @@ const Header = () => {
             <Authorized when={u => u.user.sub !== '' && u.isAuth}>
               <NotificationIcon count={7} />
             </Authorized>
+            <IconButton onClick={changeTheme}>
+              {theme.palette.mode === 'dark' ? (
+                <DarkMode sx={{ fontSize: '25px', color: theme.palette.primary.dark }} />
+              ) : (
+                <LightMode sx={{ fontSize: '25px', color: theme.palette.primary.dark }} />
+              )}
+            </IconButton>
             <CartIcon count={items.length} onClick={() => toggleCart(true)} />
             <Cart open={isCartOpen} onClose={() => toggleCart(false)} />
             <Authorized when={u => u.isAuth}>
@@ -176,7 +184,7 @@ const Header = () => {
           </Box>
         </Toolbar>
       </Container>
-    </Box>
+    </AppBar>
   );
 };
 

@@ -24,7 +24,7 @@ const NavBrand = (props: Props) => {
         fontFamily: 'monospace',
         fontWeight: 700,
         letterSpacing: '.3rem',
-        color: 'primary.main',
+        color: 'primary.dark',
         textDecoration: 'none',
       }}
     >
