@@ -7,6 +7,7 @@ export const setContext = (isAuth: boolean, isAdmin: boolean) => ({
     roles: [isAuth ? (isAdmin ? 'ADMIN' : 'USER') : 'USER'] as Role[],
   },
   loading: false,
+  mode: 'dark',
   _persist: {} as {
     version: number;
     rehydrated: boolean;

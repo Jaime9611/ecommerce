@@ -22,6 +22,8 @@ import { useAuth } from '../../../hooks/useAuth';
 import Cart from '../Cart/Cart';
 import { useSelector } from 'react-redux';
 import { CartState } from '../../../store/cart/cartSlice';
+import { useTheme } from '@mui/material';
+import { CustomTheme } from '../../../theme';
 
 // TODO: Tests for Nav
 const Header = () => {
@@ -29,6 +31,8 @@ const Header = () => {
   const navigate = useNavigate();
   const { items } = useSelector(CartState);
   const location = useLocation();
+
+  const theme = useTheme<CustomTheme>();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -67,9 +71,10 @@ const Header = () => {
   if (location.pathname.startsWith(routes.admin.path)) {
     return <></>;
   }
+  const alt = theme.palette.background.alt;
 
   return (
-    <AppBar color='secondary' position='static'>
+    <Box sx={{ bgcolor: alt }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -109,7 +114,7 @@ const Header = () => {
               <Button
                 key={routes.home.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, display: 'block', color: 'neutral.main' }}
               >
                 {routes.home.name}
               </Button>
@@ -122,7 +127,7 @@ const Header = () => {
                 <Button
                   key={routes.admin.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, display: 'block', color: 'neutral.main' }}
                 >
                   {routes.admin.name}
                 </Button>
@@ -171,7 +176,7 @@ const Header = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </Box>
   );
 };
 
