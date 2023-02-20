@@ -54,6 +54,10 @@ const Header = () => {
     { name: 'Logout', fn: handleLogout },
   ];
 
+  const dark = theme.palette.neutral.dark;
+  const neutralLight = theme.palette.neutral.light;
+  const primaryLight = theme.palette.primary.light;
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -78,7 +82,7 @@ const Header = () => {
     <AppBar sx={{ bgcolor: alt }} position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.dark' }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.main' }} />
           <NavBrand displayXs='none' displayMd='flex' to={routes.home.path}>
             ECOM
           </NavBrand>
@@ -106,7 +110,7 @@ const Header = () => {
               </Authorized>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'primary.dark' }} />
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'primary.main' }} />
           <NavBrand flexGrow={1} displayMd='none' displayXs='flex' to={routes.home.path}>
             Ecom
           </NavBrand>
@@ -148,16 +152,16 @@ const Header = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            <IconButton onClick={changeTheme}>
+              {theme.palette.mode === 'dark' ? (
+                <DarkMode sx={{ fontSize: '25px', color: dark }} />
+              ) : (
+                <LightMode sx={{ fontSize: '25px', color: dark }} />
+              )}
+            </IconButton>
             <Authorized when={u => u.user.sub !== '' && u.isAuth}>
               <NotificationIcon count={7} />
             </Authorized>
-            <IconButton onClick={changeTheme}>
-              {theme.palette.mode === 'dark' ? (
-                <DarkMode sx={{ fontSize: '25px', color: theme.palette.primary.dark }} />
-              ) : (
-                <LightMode sx={{ fontSize: '25px', color: theme.palette.primary.dark }} />
-              )}
-            </IconButton>
             <CartIcon count={items.length} onClick={() => toggleCart(true)} />
             <Cart open={isCartOpen} onClose={() => toggleCart(false)} />
             <Authorized when={u => u.isAuth}>

@@ -11,7 +11,7 @@ const NotificationIcon = (props: Props) => {
     <IconButton
       size='large'
       aria-label='show 17 new notifications'
-      sx={{ mr: 1, color: 'primary.dark' }}
+      sx={{ mr: 1, color: 'neutral.dark' }}
     >
       <Badge badgeContent={props.count} color='error'>
         <NotificationsIcon />
