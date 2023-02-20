@@ -22,7 +22,7 @@ it('should display product title and price', () => {
   renderWithProviders(<CardItem item={product} onClick={testClickFunc} />);
 
   expect(screen.getByText(product.title)).toBeInTheDocument();
-  expect(screen.getByText(product.price)).toBeInTheDocument();
+  expect(screen.getByText(`$ ${product.price}`)).toBeInTheDocument();
 });
 
 it('should show the Add Button when Product is not on the Cart', () => {
