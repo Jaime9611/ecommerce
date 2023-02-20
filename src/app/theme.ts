@@ -55,7 +55,6 @@ export interface CustomTheme {
 
 // mui theme settings
 export const themeSettings = (mode: string) => {
-  console.log(mode);
   return {
     palette: {
       mode: mode as PaletteMode,
