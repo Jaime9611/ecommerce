@@ -1,6 +1,6 @@
 import { FC, MouseEvent, MouseEventHandler } from 'react';
 
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { Product } from '../../../../models/product';
 import { messages } from '../../../../constants/messages';
@@ -25,7 +25,14 @@ const CardItem: FC<CartItemProps> = ({ item, onClick }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 375, '&:hover': { cursor: 'pointer' } }} onClick={handleClick}>
+    <Card
+      sx={{
+        maxWidth: 375,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <CardMedia
         component='img'
         sx={{ objectFit: 'cover' }}
@@ -33,37 +40,50 @@ const CardItem: FC<CartItemProps> = ({ item, onClick }) => {
         height='200'
         image={item.imageUrl}
       />
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='h5'>
-          {item.title}
-        </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          <span>Action - </span>
-          <span>Fantasy</span>
-        </Typography>
-        <Typography>{item.price}</Typography>
-      </CardContent>
-      <CardActions>
-        {itemIsOnCart(item) ? (
-          <Button
-            size='small'
-            variant='outlined'
-            color='error'
-            onClick={e => handleCartBtn(e, handleRemoveFromCart)}
+      <Box
+        flex={1}
+        display='flex'
+        flexDirection='column'
+        justifyContent='space-between'
+        padding={2}
+      >
+        <Box>
+          <Typography
+            gutterBottom
+            variant='h5'
+            onClick={handleClick}
+            sx={{ '&:hover': { cursor: 'pointer', textDecoration: 'underline' } }}
           >
-            {messages.PRODUCT.removeFromCart}
-          </Button>
-        ) : (
-          <Button
-            size='small'
-            variant='outlined'
-            color='secondary'
-            onClick={e => handleCartBtn(e, handleAddToCart)}
-          >
-            {messages.PRODUCT.addToCart}
-          </Button>
-        )}
-      </CardActions>
+            {item.title.length >= 20 ? item.title.slice(0, 17) + '...' : item.title}
+          </Typography>
+          <Typography sx={{ mb: '.7rem' }} variant='body2' color='text.secondary'>
+            <span>Action - </span>
+            <span>Fantasy</span>
+          </Typography>
+          <Typography sx={{ fontSize: '1.2rem' }}>{`$ ${item.price}`}</Typography>
+        </Box>
+        <Box pt={2}>
+          {itemIsOnCart(item) ? (
+            <Button
+              size='small'
+              variant='outlined'
+              color='secondary'
+              onClick={e => handleCartBtn(e, handleRemoveFromCart)}
+            >
+              {messages.PRODUCT.removeFromCart}
+            </Button>
+          ) : (
+            <Button
+              size='small'
+              variant='outlined'
+              color='primary'
+              onClick={e => handleCartBtn(e, handleAddToCart)}
+            >
+              {messages.PRODUCT.addToCart}
+            </Button>
+          )}
+        </Box>
+      </Box>
     </Card>
   );
 };

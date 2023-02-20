@@ -55,8 +55,6 @@ const Header = () => {
   ];
 
   const dark = theme.palette.neutral?.dark;
-  const neutralLight = theme.palette.neutral?.light;
-  const primaryLight = theme.palette.primary?.light;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

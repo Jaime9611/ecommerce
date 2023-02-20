@@ -10,9 +10,6 @@ import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
 import { renderWithProviders } from './test-utils';
 import { LOCAL_HOST } from '../constants/paths';
-import { themeSettings } from '../theme';
-import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/material';
 
 const responseJson = `"data": [
   {"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafjal",
