@@ -1,8 +1,10 @@
 import { IconButton, ListItem, ListItemText } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { CartProduct } from '../../../store/cart/cart.model';
 import { Product } from '../../../models/product';
+import { printPrice } from '../../../helpers/priceUtils';
 
 type CartItemProps = {
   item: CartProduct;
@@ -18,16 +20,19 @@ const CartItem = ({ item, onIncrement, onDecrement }: CartItemProps) => {
       </div>
       <ListItemText primary={item.title} secondary={`x${item.quantity}`} />
       <div style={{ marginRight: '30px', display: 'flex' }}>
-        <IconButton edge='end' aria-label='+' onClick={() => onIncrement(item)}>
+        <IconButton sx={{ mr: '1px' }} edge='end' aria-label='+' onClick={() => onIncrement(item)}>
           <AddCircleIcon />
         </IconButton>
         <IconButton edge='end' aria-label='-' onClick={() => onDecrement(item)}>
           <RemoveCircleIcon />
         </IconButton>
       </div>
-      <div>
-        <span style={{ fontSize: '20px' }}>{`$${item.price}`}</span>
+      <div style={{ marginRight: '1.4rem' }}>
+        <span style={{ fontSize: '20px' }}>{printPrice(item.price)}</span>
       </div>
+      <IconButton>
+        <DeleteIcon color='secondary' />
+      </IconButton>
     </ListItem>
   );
 };

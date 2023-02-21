@@ -1,4 +1,5 @@
 import Drawer from '@mui/material/Drawer';
+import { printPrice } from '../../../helpers/priceUtils';
 
 import { useCart } from '../../../hooks/useCart';
 import CartList from '../../molecules/CartList/CartList';
@@ -29,7 +30,7 @@ const Cart = ({ onClose, open }: CartProps) => {
 
         <p aria-label='Cart Total' style={{ textAlign: 'center', width: '100%' }}>
           <span style={{ fontSize: '35px' }}>Total: </span>
-          <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{`$${cartTotal}`}</span>
+          <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{printPrice(cartTotal)}</span>
         </p>
       </div>
     </Drawer>

@@ -59,7 +59,7 @@ const ProductDetails = () => {
               ) : (
                 <Button
                   size='large'
-                  variant='outlined'
+                  variant='contained'
                   color='primary'
                   onClick={() => handleAddToCart(product)}
                 >

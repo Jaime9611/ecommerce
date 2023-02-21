@@ -76,7 +76,7 @@ const CardItem: FC<CartItemProps> = ({ item, onClick }) => {
           ) : (
             <Button
               size='small'
-              variant='outlined'
+              variant='contained'
               color='primary'
               onClick={e => handleCartBtn(e, handleAddToCart)}
             >
