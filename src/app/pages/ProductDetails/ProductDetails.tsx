@@ -15,7 +15,7 @@ const ProductDetails = () => {
   const { data, isLoading } = useQuery('product', () => getProductById(id ?? ''));
   const product = data?.data;
 
-  if (isLoading || product === undefined) return <Loading />;
+  if (isLoading || product === undefined || id !== product?.id) return <Loading />;
 
   return (
     <Container sx={{ mt: 6 }}>

@@ -11,14 +11,13 @@ const Loading = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: 'white',
         zIndex: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <CircularProgress color='secondary' aria-label='Loading' data-testid='loading' />
+      <CircularProgress color='primary' aria-label='Loading' data-testid='loading' />
     </Box>
   );
 };
