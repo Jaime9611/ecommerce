@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { printPrice } from '../../../helpers/priceUtils';
 import { Product } from '../../../models/product';
 import { CartProduct } from '../../../store/cart/cart.model';
 import CartItem from './CartItem';
@@ -26,7 +27,7 @@ it('should render a Cart Item with title, price and quantity', () => {
 
   expect(screen.getByText(testItem.title)).toBeInTheDocument();
   expect(screen.getByText(`x${testItem.quantity}`)).toBeInTheDocument();
-  expect(screen.getByText(`$${testItem.price}`)).toBeInTheDocument();
+  expect(screen.getByText(printPrice(testItem.price))).toBeInTheDocument();
 });
 
 it('should have an Increment Quantity button', () => {
