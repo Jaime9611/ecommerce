@@ -1,6 +1,6 @@
 import { FC, MouseEvent, MouseEventHandler } from 'react';
 
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Typography } from '@mui/material';
 
 import { Product } from '../../../../models/product';
 import { messages } from '../../../../constants/messages';

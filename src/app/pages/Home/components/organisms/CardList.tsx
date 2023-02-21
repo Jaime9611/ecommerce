@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid';
 import CardItem from '../molecules/CardItem';
 import { Product } from '../../../../models/product';
 import { useNavigate } from 'react-router-dom';
