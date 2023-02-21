@@ -5,6 +5,7 @@ import { Box, Button, Card, CardMedia, Typography } from '@mui/material';
 import { Product } from '../../../../models/product';
 import { messages } from '../../../../constants/messages';
 import { useCart } from '../../../../hooks/useCart';
+import { printPrice } from '../../../../helpers/priceUtils';
 
 interface CartItemProps {
   item: Product;
@@ -60,7 +61,7 @@ const CardItem: FC<CartItemProps> = ({ item, onClick }) => {
             <span>Action - </span>
             <span>Fantasy</span>
           </Typography>
-          <Typography sx={{ fontSize: '1.2rem' }}>{`$ ${item.price}`}</Typography>
+          <Typography sx={{ fontSize: '1.2rem' }}>{printPrice(item.price)}</Typography>
         </Box>
         <Box pt={2}>
           {itemIsOnCart(item) ? (
