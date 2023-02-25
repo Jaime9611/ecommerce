@@ -1,13 +1,21 @@
-import { IUser } from './user';
+// User Models
+export type Role = 'USER' | 'ADMIN';
 
-export interface IAuthState {
+export interface IUser {
+  sub: string;
+  roles: Role[];
+}
+
+export interface AuthStore {
   token: string;
   user: IUser;
   loading?: boolean;
+  mode: string;
 }
 
+// Auth Models
 export interface IAuthContext {
-  auth: IAuthState;
+  auth: AuthStore;
   logout: () => void;
   login: (username: string, password: string) => Promise<void>;
 }
@@ -20,5 +28,5 @@ export enum ActionType {
 
 export type IAuthAction =
   | { type: ActionType.SET_LOADING; payload: boolean }
-  | { type: ActionType.LOGIN; payload: IAuthState }
+  | { type: ActionType.LOGIN; payload: AuthStore }
   | { type: ActionType.LOGOUT };

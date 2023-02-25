@@ -1,1 +1,1 @@
-export const LOCAL_HOST = 'http://localhost:8081/api/v1';
+export const LOCAL_HOST = process.env.REACT_APP_API_URL;

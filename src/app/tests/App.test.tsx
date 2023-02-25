@@ -1,12 +1,36 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthProvider';
 
 import Navigator from '../routes/Navigator';
 import { setContext } from './helpers';
 import routes from '../routes/constants/routes.json';
+import { renderWithProviders } from './test-utils';
+import { LOCAL_HOST } from '../constants/paths';
+
+const responseJson = `"data": [
+  {"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafjal",
+"title": "Call of Duty",
+"price": 20.38},
+{"id": "ofjaifj2jr29fafjalfjla-jofj0q-fafackl",
+"title": "God of War 3",
+"price": 34.38}
+]`;
+
+export const handlers = [
+  rest.get(`${LOCAL_HOST}/products`, (req, res, ctx) => {
+    return res(ctx.json(responseJson), ctx.delay(150));
+  }),
+];
+
+const server = setupServer(...handlers);
+
+beforeAll(() => server.listen());
+afterEach(() => server.restoreHandlers());
+afterAll(() => server.close());
 
 describe('Navigate as Authenticated Admin', () => {
   let history: any;
@@ -16,16 +40,13 @@ describe('Navigate as Authenticated Admin', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
-      <AuthContext.Provider value={context}>
-        <Router location={history.location} navigator={history}>
-          <Navigator />
-        </Router>
-      </AuthContext.Provider>,
+    renderWithProviders(
+      <Router location={history.location} navigator={history}>
+        <Navigator />
+      </Router>,
+      { preloadedState: { user: context } },
     );
   });
-
-  afterEach(cleanup);
 
   it('should have access to home', () => {
     const navLink = screen.getByRole('button', { name: routes.home.name });
@@ -60,16 +81,13 @@ describe('Navigate as Authenticated but not as Admin', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
-      <AuthContext.Provider value={context}>
-        <Router location={history.location} navigator={history}>
-          <Navigator />
-        </Router>
-      </AuthContext.Provider>,
+    renderWithProviders(
+      <Router location={history.location} navigator={history}>
+        <Navigator />
+      </Router>,
+      { preloadedState: { user: context } },
     );
   });
-
-  afterEach(cleanup);
 
   it('should not have access to Admin page', () => {
     const admin = screen.queryByRole('button', { name: routes.admin.name });
@@ -97,12 +115,11 @@ describe('Navigate as not Authenticated user', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
-      <AuthContext.Provider value={context}>
-        <Router location={history.location} navigator={history}>
-          <Navigator />
-        </Router>
-      </AuthContext.Provider>,
+    renderWithProviders(
+      <Router location={history.location} navigator={history}>
+        <Navigator />
+      </Router>,
+      { preloadedState: { user: context } },
     );
   });
 
@@ -147,12 +164,12 @@ describe('Logut user and redirect', () => {
     history = createMemoryHistory();
 
     // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
-      <AuthContext.Provider value={context}>
-        <Router location={history.location} navigator={history}>
-          <Navigator />
-        </Router>
-      </AuthContext.Provider>,
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    renderWithProviders(
+      <Router location={history.location} navigator={history}>
+        <Navigator />
+      </Router>,
+      { preloadedState: { user: context } },
     );
   });
   afterEach(cleanup);
@@ -168,6 +185,6 @@ describe('Logut user and redirect', () => {
 
     userEvent.click(logoutBtn);
 
-    expect(context.logout.mock.calls.length).toBe(1);
+    expect(logoutBtn).not.toBeInTheDocument();
   });
 });

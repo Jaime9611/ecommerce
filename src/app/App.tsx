@@ -1,18 +1,30 @@
-import { Provider } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import AuthProvider from './auth/AuthProvider';
 import Navigator from './routes/Navigator';
-import { store } from './store/store';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { useMemo } from 'react';
+import { themeSettings } from './theme';
+import { UserState } from './store/users/userSlice';
+
+const queryClient = new QueryClient();
 
 const App = () => {
+  const { mode } = useSelector(UserState);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
-    <AuthProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Navigator />
-        </BrowserRouter>
-      </Provider>
-    </AuthProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <BrowserRouter>
+            <Navigator />
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </>
   );
 };
 

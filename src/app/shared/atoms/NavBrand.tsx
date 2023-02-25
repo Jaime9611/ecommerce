@@ -13,7 +13,7 @@ type Props = {
 const NavBrand = (props: Props) => {
   return (
     <Typography
-      variant='h5'
+      variant='h3'
       noWrap
       component={Link}
       to={props.to}
@@ -24,7 +24,7 @@ const NavBrand = (props: Props) => {
         fontFamily: 'monospace',
         fontWeight: 700,
         letterSpacing: '.3rem',
-        color: 'inherit',
+        color: 'primary.main',
         textDecoration: 'none',
       }}
     >

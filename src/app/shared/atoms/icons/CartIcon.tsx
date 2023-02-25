@@ -4,11 +4,18 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 
 type Props = {
   count: number;
+  onClick: () => void;
 };
 
 const CartIcon = (props: Props) => {
   return (
-    <IconButton size='large' aria-label='show 17 new products' color='inherit' sx={{ mr: 2 }}>
+    <IconButton
+      size='large'
+      aria-label='show 17 new products'
+      color='inherit'
+      sx={{ mr: 2, color: 'neutral.dark' }}
+      onClick={props.onClick}
+    >
       <Badge badgeContent={props.count} color='error'>
         <LocalMallIcon />
       </Badge>

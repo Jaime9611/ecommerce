@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Product } from '../../models/product';
 import { RootState } from '../store';
 import { fetchAllProducts } from './products.action';
 import { ProductsStore } from './products.model';
 
 const initialState: ProductsStore = {
-  products: [],
+  products: [] as Product[],
   loading: false,
 };
 

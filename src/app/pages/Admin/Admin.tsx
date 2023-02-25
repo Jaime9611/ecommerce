@@ -1,11 +1,17 @@
-import React from 'react';
-import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Dashboard } from './components/Dashboard';
+import { Outlet } from 'react-router-dom';
 
 const Admin = () => {
   return (
-    <Container maxWidth='xl' sx={{ mt: 3 }}>
-      Admin
-    </Container>
+    <Grid container sx={{ height: '100vh' }}>
+      <Grid item xs={2}>
+        <Dashboard />
+      </Grid>
+      <Grid>
+        <Outlet />
+      </Grid>
+    </Grid>
   );
 };
 
