@@ -10,7 +10,7 @@ interface CartProps {
 }
 
 const Cart = ({ onClose, open }: CartProps) => {
-  const { items, cartTotal, handleIncrementQuantity, handleDecrementQuantity } = useCart();
+  const { items, cartTotal } = useCart();
 
   return (
     <Drawer open={open} anchor='right' onClose={onClose}>
@@ -22,11 +22,7 @@ const Cart = ({ onClose, open }: CartProps) => {
           justifyContent: 'space-between',
         }}
       >
-        <CartList
-          items={items}
-          onIncrement={handleIncrementQuantity}
-          onDecrement={handleDecrementQuantity}
-        />
+        <CartList items={items} />
 
         <p aria-label='Cart Total' style={{ textAlign: 'center', width: '100%' }}>
           <span style={{ fontSize: '35px' }}>Total: </span>
