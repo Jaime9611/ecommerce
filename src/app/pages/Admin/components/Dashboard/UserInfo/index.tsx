@@ -9,9 +9,7 @@ const UserInfo = () => (
     >
       JB
     </Avatar>
-    <Typography variant='h5' color='white'>
-      Admin User
-    </Typography>
+    <Typography variant='h5'>Admin User</Typography>
   </Stack>
 );
 

@@ -1,16 +1,16 @@
 import UserInfo from './UserInfo';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import DashboardLinkItem from './DashboardItem';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Dashboard = () => (
   <Box
-    sx={{ backgroundColor: 'secondary.main' }}
+    sx={{ backgroundColor: 'background.alt' }}
     display='flex'
     flexDirection='column'
     height='100%'
   >
-    <Box p={2}>
+    <Box p={4}>
       <UserInfo />
     </Box>
     <Box py={5}>
@@ -19,8 +19,12 @@ const Dashboard = () => (
       <DashboardLinkItem name={'Orders'} href={'/admin/orders'} />
     </Box>
     <Box display='flex' flex={1} p={2} justifyContent='center'>
-      <Link to='/' style={{ padding: 2, color: 'white', alignSelf: 'flex-end' }}>
-        Home
+      <Link
+        component={RouterLink}
+        to='/'
+        sx={{ padding: 3, alignSelf: 'flex-end', color: 'neutral.dark', textDecoration: 'none' }}
+      >
+        HOME
       </Link>
     </Box>
   </Box>

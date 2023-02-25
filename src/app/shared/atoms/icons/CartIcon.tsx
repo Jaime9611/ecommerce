@@ -13,7 +13,7 @@ const CartIcon = (props: Props) => {
       size='large'
       aria-label='show 17 new products'
       color='inherit'
-      sx={{ mr: 2 }}
+      sx={{ mr: 2, color: 'neutral.dark' }}
       onClick={props.onClick}
     >
       <Badge badgeContent={props.count} color='error'>

@@ -7,6 +7,7 @@ const initialState: AuthStore = {
   token: '',
   user: {} as IUser,
   loading: false,
+  mode: 'dark',
 };
 
 const userSlice = createSlice({
@@ -16,6 +17,9 @@ const userSlice = createSlice({
     logout: state => {
       state.token = '';
       state.user = {} as IUser;
+    },
+    setMode: state => {
+      state.mode = state.mode === 'light' ? 'dark' : 'light';
     },
   },
   extraReducers: builder => {
@@ -34,5 +38,5 @@ const userSlice = createSlice({
 });
 
 export const UserState = (state: RootState) => state.user;
-export const { logout } = userSlice.actions;
+export const { logout, setMode } = userSlice.actions;
 export default userSlice.reducer;

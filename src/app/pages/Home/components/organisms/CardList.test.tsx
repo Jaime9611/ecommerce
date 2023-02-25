@@ -33,9 +33,9 @@ it('should display the products title and price', () => {
   );
 
   expect(screen.getByText(products[0].title)).toBeInTheDocument();
-  expect(screen.getByText(products[0].price)).toBeInTheDocument();
+  expect(screen.getByText(`$ ${products[0].price}`)).toBeInTheDocument();
   expect(screen.getByText(products[1].title)).toBeInTheDocument();
-  expect(screen.getByText(products[1].price)).toBeInTheDocument();
+  expect(screen.getByText(`$ ${products[1].price}`)).toBeInTheDocument();
 });
 
 it('should display the list of products', () => {

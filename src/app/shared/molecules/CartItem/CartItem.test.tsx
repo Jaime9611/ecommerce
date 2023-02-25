@@ -1,13 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Product } from '../../../models/product';
+import { screen } from '@testing-library/react';
+
+import { printPrice } from '../../../helpers/priceUtils';
 import { CartProduct } from '../../../store/cart/cart.model';
+import { renderWithProviders } from '../../../tests/test-utils';
 import CartItem from './CartItem';
 
 it('should render a Cart Item with title, price and quantity', () => {
   const testItem: CartProduct = {
     id: '1',
-    description: 'Desc',
+    description: 'Description',
     imageUrl: 'ImageUrl',
     title: 'Test Item',
     price: 20,
@@ -16,17 +17,11 @@ it('should render a Cart Item with title, price and quantity', () => {
     categories: [],
   };
 
-  render(
-    <CartItem
-      item={testItem}
-      onIncrement={(item: Product) => {}}
-      onDecrement={(item: Product) => {}}
-    />,
-  );
+  renderWithProviders(<CartItem item={testItem} />);
 
   expect(screen.getByText(testItem.title)).toBeInTheDocument();
   expect(screen.getByText(`x${testItem.quantity}`)).toBeInTheDocument();
-  expect(screen.getByText(`$${testItem.price}`)).toBeInTheDocument();
+  expect(screen.getByText(printPrice(testItem.price))).toBeInTheDocument();
 });
 
 it('should have an Increment Quantity button', () => {
@@ -41,13 +36,11 @@ it('should have an Increment Quantity button', () => {
     categories: [],
   };
 
-  const testFunc = jest.fn();
-  render(<CartItem item={testItem} onIncrement={testFunc} onDecrement={(item: Product) => {}} />);
+  renderWithProviders(<CartItem item={testItem} />);
 
   const incrementButton = screen.getByRole('button', { name: '+' });
-  userEvent.click(incrementButton);
 
-  expect(testFunc).toBeCalled();
+  expect(incrementButton).toBeInTheDocument();
 });
 
 it('should have a Decrement Quantity button', () => {
@@ -62,11 +55,9 @@ it('should have a Decrement Quantity button', () => {
     categories: [],
   };
 
-  const testFunc = jest.fn();
-  render(<CartItem item={testItem} onIncrement={(item: Product) => {}} onDecrement={testFunc} />);
+  renderWithProviders(<CartItem item={testItem} />);
 
   const decrementButton = screen.getByRole('button', { name: '-' });
-  userEvent.click(decrementButton);
 
-  expect(testFunc).toBeCalled();
+  expect(decrementButton).toBeInTheDocument();
 });

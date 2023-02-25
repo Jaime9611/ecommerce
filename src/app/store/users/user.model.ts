@@ -10,6 +10,7 @@ export interface AuthStore {
   token: string;
   user: IUser;
   loading?: boolean;
+  mode: string;
 }
 
 // Auth Models

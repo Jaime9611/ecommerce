@@ -1,7 +1,7 @@
-import Grid from '@mui/material/Grid';
 import CardItem from '../molecules/CardItem';
 import { Product } from '../../../../models/product';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 type CardListProps = {
   data: Product[];
@@ -15,13 +15,22 @@ const CardList = ({ data }: CardListProps) => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Box
+      margin='0 auto'
+      display='grid'
+      gridTemplateColumns='repeat(auto-fill, 220px)'
+      justifyContent='space-around'
+      rowGap='1.25rem'
+      columnGap='1%'
+    >
       {data.map(product => (
-        <Grid item xs={2} key={product.id}>
-          <CardItem item={product} onClick={() => handleCardClick(product.id)} />
-        </Grid>
+        <CardItem
+          key={`card-item-${product.id}`}
+          item={product}
+          onClick={() => handleCardClick(product.id)}
+        />
       ))}
-    </Grid>
+    </Box>
   );
 };
 

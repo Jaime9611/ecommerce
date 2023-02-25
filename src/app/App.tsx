@@ -1,26 +1,29 @@
-import { CssBaseline } from '@mui/material';
-import { Provider } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Navigator from './routes/Navigator';
-import { store, persistor } from './store/store';
-import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useMemo } from 'react';
+import { themeSettings } from './theme';
+import { UserState } from './store/users/userSlice';
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const { mode } = useSelector(UserState);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     <>
-      <CssBaseline />
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-              <Navigator />
-            </BrowserRouter>
-          </QueryClientProvider>
-        </PersistGate>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <BrowserRouter>
+            <Navigator />
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   );
 };

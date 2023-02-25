@@ -8,6 +8,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { messages } from '../../../constants/messages';
+import { printPrice } from '../../../helpers/priceUtils';
 import { renderWithProviders } from '../../../tests/test-utils';
 import Cart from './Cart';
 
@@ -87,7 +88,7 @@ describe('When the Cart has 1 or more items', () => {
       userEvent.click(within(item).getByRole('button', { name: '+' }));
 
       // ASSERT
-      expect(within(cartTotal).getByText(`$${totalPriceAfter}`)).toBeInTheDocument();
+      expect(within(cartTotal).getByText(printPrice(totalPriceAfter))).toBeInTheDocument();
     });
   });
   describe('When the decrement button is clicked', () => {
@@ -117,7 +118,7 @@ describe('When the Cart has 1 or more items', () => {
       userEvent.click(within(item).getByRole('button', { name: '-' }));
 
       // ASSERT
-      expect(within(cartTotal).getByText(`$${totalPriceAfter}`)).toBeInTheDocument();
+      expect(within(cartTotal).getByText(printPrice(totalPriceAfter))).toBeInTheDocument();
     });
   });
 });
