@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import { getProductById } from '../../api/products';
 import { messages } from '../../constants/messages';
-import { printPrice } from '../../helpers/priceUtils';
+import { printPrice } from '../../helpers/printUtils';
 import { useCart } from '../../hooks/useCart';
 import Loading from '../../shared/organisms/Loading/Loading';
 

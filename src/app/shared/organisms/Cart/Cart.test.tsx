@@ -8,7 +8,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { messages } from '../../../constants/messages';
-import { printPrice } from '../../../helpers/priceUtils';
+import { printPrice } from '../../../helpers/printUtils';
 import { renderWithProviders } from '../../../tests/test-utils';
 import Cart from './Cart';
 

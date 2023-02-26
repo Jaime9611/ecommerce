@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 
-import { printPrice } from '../../../helpers/priceUtils';
+import { printPrice } from '../../../helpers/printUtils';
 import { CartProduct } from '../../../store/cart/cart.model';
 import { renderWithProviders } from '../../../tests/test-utils';
 import CartItem from './CartItem';

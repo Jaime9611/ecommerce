@@ -1,6 +1,8 @@
+import { Box, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
-import { printPrice } from '../../../helpers/priceUtils';
 
+import { printPrice } from '../../../helpers/printUtils';
 import { useCart } from '../../../hooks/useCart';
 import CartList from '../../molecules/CartList/CartList';
 
@@ -14,12 +16,21 @@ const Cart = ({ onClose, open }: CartProps) => {
 
   return (
     <Drawer open={open} anchor='right' onClose={onClose}>
-      <div
-        style={{
+      <Box mb={2} pl={1}>
+        <IconButton onClick={onClose}>
+          <CloseIcon
+            sx={{ fontSize: '2em', color: 'neutral.dark', '&:hover': { color: 'primary.main' } }}
+          />
+        </IconButton>
+      </Box>
+      <Box
+        sx={{
           display: 'flex',
           height: '100%',
+          maxWidth: '95vw',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          p: 2,
         }}
       >
         <CartList items={items} />
@@ -28,7 +39,7 @@ const Cart = ({ onClose, open }: CartProps) => {
           <span style={{ fontSize: '35px' }}>Total: </span>
           <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{printPrice(cartTotal)}</span>
         </p>
-      </div>
+      </Box>
     </Drawer>
   );
 };

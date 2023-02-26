@@ -5,7 +5,7 @@ import { Box, Button, Card, CardMedia, Typography } from '@mui/material';
 import { Product } from '../../../../models/product';
 import { messages } from '../../../../constants/messages';
 import { useCart } from '../../../../hooks/useCart';
-import { printPrice } from '../../../../helpers/priceUtils';
+import { printPrice } from '../../../../helpers/printUtils';
 
 interface CartItemProps {
   item: Product;
