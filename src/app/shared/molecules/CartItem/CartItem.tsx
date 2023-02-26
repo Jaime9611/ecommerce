@@ -31,7 +31,6 @@ const CartItem = ({ item }: CartItemProps) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          mr: '1.4rem',
           width: '100%',
         }}
       >

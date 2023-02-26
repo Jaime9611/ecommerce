@@ -9,8 +9,8 @@ type Props = {
 
 const NavLink = ({ to, name, onClick }: Props) => (
   <Link to={to}>
-    <MenuItem key={name} onClick={onClick}>
-      <Typography sx={{ color: 'black' }} textAlign='center'>
+    <MenuItem key={name} sx={{ py: 3, px: 4 }} onClick={onClick}>
+      <Typography sx={{ color: 'neutral.main', fontSize: '.8rem' }} textAlign='center'>
         {name}
       </Typography>
     </MenuItem>

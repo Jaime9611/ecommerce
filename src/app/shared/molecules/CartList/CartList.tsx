@@ -9,11 +9,21 @@ type Props = {
 
 const CartList = ({ items }: Props) => {
   return (
-    <List dense={false} sx={{ width: '100%', py: 3, px: 1, overflowY: 'scroll' }}>
+    <List dense={false} sx={{ width: '100%', height: '100%', px: 1, overflowY: 'scroll' }}>
       {items.length !== 0 ? (
         items.map(item => <CartItem item={item} key={`Cart-item-${item.id}`} />)
       ) : (
-        <Typography variant='h4' sx={{ textAlign: 'center', marginTop: '30%', py: 3, px: 1 }}>
+        <Typography
+          variant='h4'
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            textAlign: 'center',
+            height: '100%',
+            py: 3,
+            px: 1,
+          }}
+        >
           {messages.CART.isEmptyMsg}
         </Typography>
       )}
