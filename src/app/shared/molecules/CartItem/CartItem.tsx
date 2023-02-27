@@ -47,8 +47,8 @@ const CartItem = ({ item }: CartItemProps) => {
             <RemoveCircleIcon />
           </IconButton>
         </Box>
-        <Box>
-          <span style={{ fontSize: '20px' }}>{printPrice(item.price)}</span>
+        <Box sx={{ fontSize: { md: '1rem', xs: '.7rem' }, width: '4.5rem' }}>
+          <span>{printPrice(item.price)}</span>
         </Box>
         <IconButton edge='end' onClick={() => handleRemoveFromCart(item)}>
           <DeleteIcon />
