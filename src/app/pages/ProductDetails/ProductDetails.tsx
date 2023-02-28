@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import { getProductById } from '../../api/products';
 import { messages } from '../../constants/messages';
-import { printPrice } from '../../helpers/priceUtils';
+import { printPrice } from '../../helpers/printUtils';
 import { useCart } from '../../hooks/useCart';
 import Loading from '../../shared/organisms/Loading/Loading';
 
@@ -18,10 +18,16 @@ const ProductDetails = () => {
   if (isLoading || product === undefined || id !== product?.id) return <Loading />;
 
   return (
-    <Container sx={{ mt: 6 }}>
+    <Container sx={{ mt: 10 }}>
       <Paper elevation={2} sx={{ p: 3 }}>
-        <Box display='flex' justifyContent='space-between' alignItems='center' gap='1rem'>
-          <Box flex={1}>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
+          gap='1rem'
+          flexWrap='wrap'
+        >
+          <Box flex={{ xs: '100%', sm: 1 }} display='flex' justifyContent='center' pb={{ xs: 2 }}>
             <img
               src={product?.imageUrl}
               alt={product?.title}
@@ -33,7 +39,7 @@ const ProductDetails = () => {
               }}
             />
           </Box>
-          <Box>
+          <Box flex={{ xs: 4, md: 6 }}>
             <Typography variant='h3' sx={{ mb: 2 }}>
               {product?.title}
             </Typography>

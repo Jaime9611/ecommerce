@@ -77,12 +77,12 @@ const Header = () => {
   const alt = theme.palette.background.alt;
 
   return (
-    <AppBar sx={{ bgcolor: alt }} position='static'>
+    <AppBar sx={{ bgcolor: alt }} position='fixed'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.main' }} />
           <NavBrand displayXs='none' displayMd='flex' to={routes.home.path}>
-            ECOM
+            FKECOM
           </NavBrand>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,7 +110,7 @@ const Header = () => {
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'primary.main' }} />
           <NavBrand flexGrow={1} displayMd='none' displayXs='flex' to={routes.home.path}>
-            Ecom
+            FKECOM
           </NavBrand>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to={routes.home.path}>

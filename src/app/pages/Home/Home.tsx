@@ -21,7 +21,7 @@ const Home = () => {
   if (loading) return <Loading />;
 
   return (
-    <Container maxWidth='xl' sx={{ mt: 3 }}>
+    <Container maxWidth='xl' sx={{ mt: 10 }}>
       <CardList data={products} />
     </Container>
   );
