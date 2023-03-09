@@ -1,14 +1,23 @@
 import UserInfo from './UserInfo';
-import { Box, Link } from '@mui/material';
+import { Box, Drawer, Link } from '@mui/material';
 import DashboardLinkItem from './DashboardItem';
 import { Link as RouterLink } from 'react-router-dom';
 
+const drawerWidth = 256;
+
 const Dashboard = () => (
-  <Box
-    sx={{ backgroundColor: 'background.alt' }}
-    display='flex'
-    flexDirection='column'
-    height='100%'
+  <Drawer
+    sx={{
+      backgroundColor: 'background.alt',
+      width: drawerWidth,
+      flexShrink: 0,
+      '& .MuiDrawer-paper': {
+        width: drawerWidth,
+        boxSizing: 'border-box',
+      },
+    }}
+    variant='permanent'
+    anchor='left'
   >
     <Box p={4}>
       <UserInfo />
@@ -27,7 +36,7 @@ const Dashboard = () => (
         HOME
       </Link>
     </Box>
-  </Box>
+  </Drawer>
 );
 
 export default Dashboard;
