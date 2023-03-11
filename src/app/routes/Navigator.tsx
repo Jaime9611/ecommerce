@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Admin } from '../pages/Admin';
 import { Home } from '../pages/Home';
@@ -9,6 +9,7 @@ import Protected from './Protected';
 
 import routes from './constants/routes.json';
 import ProductDetails from '../pages/ProductDetails/ProductDetails';
+import ProductsAdmin from '../pages/Dashboard/ProductsAdmin/ProductsAdmin';
 
 const Navigator = () => {
   const { isAdmin, isAuth } = useAuth();
@@ -37,8 +38,9 @@ const Navigator = () => {
         {/* Admins Only */}
         <Route element={<Protected redirect='login' hasAccess={isAdmin} />}>
           <Route path={routes.admin.path} element={<Admin />}>
-            <Route path='products' element={<div>Hello products</div>} />
-            <Route path='orders' element={<div>Hello orders</div>} />
+            <Route index element={<Navigate to={routes.productsAdmin.path} />} />
+            <Route path={routes.productsAdmin.path} element={<ProductsAdmin />} />
+            <Route path={routes.ordersAdmin.path} element={<div>Hello orders</div>} />
           </Route>
         </Route>
       </Routes>

@@ -1,15 +1,17 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { Dashboard } from './components/Dashboard';
 import { Outlet } from 'react-router-dom';
 
 const Admin = () => {
   return (
     <Grid container sx={{ height: '100vh' }}>
-      <Grid item xs={2}>
+      <Grid item>
         <Dashboard />
       </Grid>
-      <Grid>
-        <Outlet />
+      <Grid item>
+        <Box sx={{ p: 4 }}>
+          <Outlet />
+        </Box>
       </Grid>
     </Grid>
   );

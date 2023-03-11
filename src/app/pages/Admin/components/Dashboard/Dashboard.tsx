@@ -23,7 +23,6 @@ const Dashboard = () => (
       <UserInfo />
     </Box>
     <Box py={5}>
-      <DashboardLinkItem name={'Dashboard'} href={'/admin'} />
       <DashboardLinkItem name={'Products'} href={'/admin/products'} />
       <DashboardLinkItem name={'Orders'} href={'/admin/orders'} />
     </Box>
